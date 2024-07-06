@@ -10,34 +10,42 @@
 </head>
 <body>
     <div class="search-container">
-        <input type="text" class="search-box" id="search-query" placeholder="输入搜索内容...">
+        <input type="text" class="search-box" id="search-query" placeholder="输入搜索内容..." onkeypress="handleKeyPress(event)">
         <button class="search-button" onclick="search()">
             <span class="material-icons">search</span>
         </button>
     </div>
 
-    <button class="engine-button" onclick="toggleMenu()">
+    <button class="engine-button" onclick="togglePopup()">
         <span class="material-icons">settings</span>
     </button>
     
-    <div class="engine-menu" id="engine-menu">
-        <div class="menu-section">
-            <h3>更换搜索引擎</h3>
-            <button onclick="setEngine('google')">Google <span id="google-check" class="check-mark">√</span></button>
-            <button onclick="setEngine('bing')">Bing <span id="bing-check" class="check-mark">√</span></button>
-            <button onclick="setEngine('duckduckgo')">DuckDuckGo <span id="duckduckgo-check" class="check-mark">√</span></button>
-            <button onclick="setEngine('baidu')">Baidu <span id="baidu-check" class="check-mark">√</span></button>
-            <button onclick="setEngine('wikipedia-zh')">Wikipedia ZH <span id="wikipedia-zh-check" class="check-mark">√</span></button>
-            <button onclick="setEngine('wikipedia-en')">Wikipedia EN <span id="wikipedia-en-check" class="check-mark">√</span></button>
-        </div>
-        <div class="menu-section">
-            <h3>背景设置</h3>
-            <button onclick="document.getElementById('background-upload').click()">上传背景图</button>
-            <button onclick="clearBackground()">清除背景图</button>
-        </div>
-        <div class="menu-section">
-            <h3>GitHub</h3>
-            <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
+    <div class="popup" id="settings-popup">
+        <div class="popup-content" id="popup-content">
+            <span class="close-button" onclick="togglePopup()">&times;</span>
+            <div class="menu-section">
+                <h3>更换搜索引擎</h3>
+                <button onclick="setEngine('google')">Google <span id="google-check" class="check-mark">√</span></button>
+                <button onclick="setEngine('bing')">Bing <span id="bing-check" class="check-mark">√</span></button>
+                <button onclick="setEngine('duckduckgo')">DuckDuckGo <span id="duckduckgo-check" class="check-mark">√</span></button>
+                <button onclick="setEngine('baidu')">Baidu <span id="baidu-check" class="check-mark">√</span></button>
+                <button onclick="setEngine('wikipedia-zh')">Wikipedia ZH <span id="wikipedia-zh-check" class="check-mark">√</span></button>
+                <button onclick="setEngine('wikipedia-en')">Wikipedia EN <span id="wikipedia-en-check" class="check-mark">√</span></button>
+            </div>
+            <div class="menu-section">
+                <h3>背景设置</h3>
+                <button onclick="document.getElementById('background-upload').click()">上传背景图</button>
+                <button onclick="clearBackground()">清除背景图</button>
+            </div>
+            <div class="menu-section">
+                <h3>主题</h3>
+                <button onclick="setTheme('light')">浅色主题</button>
+                <button onclick="setTheme('dark')">深色主题</button>
+            </div>
+            <div class="menu-section">
+                <h3>GitHub</h3>
+                <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
+            </div>
         </div>
     </div>
 

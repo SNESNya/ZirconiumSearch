@@ -1,4 +1,4 @@
-var currentEngine = 'google';
+var currentEngine = 'bing';
 
 function search() {
     var query = document.getElementById('search-query').value;
@@ -26,6 +26,12 @@ function search() {
     window.location.href = url;
 }
 
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        search();
+    }
+}
+
 function changeBackground(event) {
     var file = event.target.files[0];
     if (file) {
@@ -51,12 +57,12 @@ function loadBackground() {
     }
 }
 
-function toggleMenu() {
-    var menu = document.getElementById('engine-menu');
-    if (menu.style.display === 'none' || menu.style.display === '') {
-        menu.style.display = 'block';
+function togglePopup() {
+    var popup = document.getElementById('settings-popup');
+    if (popup.style.display === 'none' || popup.style.display === '') {
+        popup.style.display = 'block';
     } else {
-        menu.style.display = 'none';
+        popup.style.display = 'none';
     }
 }
 
@@ -66,7 +72,42 @@ function setEngine(engine) {
         check.style.display = 'none';
     });
     document.getElementById(engine + '-check').style.display = 'inline';
-    toggleMenu();
 }
 
-window.onload = loadBackground;
+function setTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+window.onload = function() {
+    loadBackground();
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    }
+    document.getElementById('popup-content').addEventListener('mousedown', startDrag, false);
+};
+
+function startDrag(e) {
+    e.preventDefault();
+    var popup = document.getElementById('settings-popup');
+    var shiftX = e.clientX - popup.getBoundingClientRect().left;
+    var shiftY = e.clientY - popup.getBoundingClientRect().top;
+    document.addEventListener('mousemove', moveAt, false);
+    document.addEventListener('mouseup', stopDrag, false);
+
+    function moveAt(e) {
+        popup.style.left = e.clientX - shiftX + 'px';
+        popup.style.top = e.clientY - shiftY + 'px';
+    }
+
+    function stopDrag() {
+        document.removeEventListener('mousemove', moveAt, false);
+        document.removeEventListener('mouseup', stopDrag, false);
+    }
+}

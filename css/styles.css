@@ -9,8 +9,15 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    transition: background-image 0.5s ease;
+    transition: background-image 0.5s ease, background-color 0.5s ease;
+    color: #000;
 }
+
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
 .search-container {
     display: flex;
     align-items: center;
@@ -20,6 +27,11 @@ body {
     padding: 10px;
     width: 350px;
 }
+
+body.dark-mode .search-container {
+    background-color: #444;
+}
+
 .search-box {
     border: none;
     outline: none;
@@ -27,6 +39,12 @@ body {
     flex-grow: 1;
     margin-right: 10px;
 }
+
+body.dark-mode .search-box {
+    background-color: #666;
+    color: #fff;
+}
+
 .search-button {
     display: flex;
     align-items: center;
@@ -41,9 +59,15 @@ body {
     font-size: 24px;
     transition: background-color 0.3s;
 }
+
 .search-button:hover {
     background-color: #45a049;
 }
+
+body.dark-mode .search-button {
+    background-color: #5b9f65;
+}
+
 .engine-button {
     position: fixed;
     right: 20px;
@@ -61,32 +85,63 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .engine-button:hover {
     background-color: #e68900;
 }
-.engine-menu {
+
+body.dark-mode .engine-button {
+    background-color: #e68900;
+}
+
+.popup {
     display: none;
     position: fixed;
-    right: 20px;
-    bottom: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-height: 300px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
-    width: 200px;
+    z-index: 1000;
+    overflow-y: auto;
 }
+
+body.dark-mode .popup {
+    background-color: #444;
+    color: #fff;
+}
+
+.popup-content {
+    padding: 20px;
+    cursor: move;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 .menu-section {
-    padding: 10px;
+    padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
+
 .menu-section:last-child {
     border-bottom: none;
 }
+
 .menu-section h3 {
     margin: 0 0 10px 0;
     font-size: 16px;
 }
-.engine-menu button {
+
+.popup button {
     background: none;
     border: none;
     padding: 10px 0;
@@ -95,12 +150,19 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.engine-menu button:hover {
+
+.popup button:hover {
     background-color: #f5f5f5;
 }
+
+body.dark-mode .popup button:hover {
+    background-color: #666;
+}
+
 .upload-input {
     display: none;
 }
+
 .check-mark {
     display: none;
     color: green;
