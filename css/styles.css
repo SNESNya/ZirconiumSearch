@@ -107,7 +107,7 @@ body.dark-mode .engine-button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     z-index: 1000;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 body.dark-mode .popup {
@@ -115,14 +115,32 @@ body.dark-mode .popup {
     color: #fff;
 }
 
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+body.dark-mode .popup-header {
+    background-color: #555;
+    border-bottom: 1px solid #666;
+}
+
+.popup-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
 .popup-content {
     padding: 20px;
+    overflow-y: auto;
+    max-height: calc(100% - 50px); /* 50px 是 header 的高度 */
 }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     font-size: 24px;
     cursor: pointer;
 }
@@ -149,6 +167,7 @@ body.dark-mode .popup {
     text-align: left;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: inherit;
 }
 
 .popup button:hover {
