@@ -38,11 +38,12 @@ body.dark-mode .search-container {
     font-size: 16px;
     flex-grow: 1;
     margin-right: 10px;
+    background-color: inherit;
+    color: inherit;
 }
 
-body.dark-mode .search-box {
-    background-color: #666;
-    color: #fff;
+body.dark-mode .search-box::placeholder {
+    color: #ccc;
 }
 
 .search-button {
@@ -116,7 +117,6 @@ body.dark-mode .popup {
 
 .popup-content {
     padding: 20px;
-    cursor: move;
 }
 
 .close-button {

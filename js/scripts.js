@@ -90,24 +90,4 @@ window.onload = function() {
     if (savedTheme) {
         setTheme(savedTheme);
     }
-    document.getElementById('popup-content').addEventListener('mousedown', startDrag, false);
 };
-
-function startDrag(e) {
-    e.preventDefault();
-    var popup = document.getElementById('settings-popup');
-    var shiftX = e.clientX - popup.getBoundingClientRect().left;
-    var shiftY = e.clientY - popup.getBoundingClientRect().top;
-    document.addEventListener('mousemove', moveAt, false);
-    document.addEventListener('mouseup', stopDrag, false);
-
-    function moveAt(e) {
-        popup.style.left = e.clientX - shiftX + 'px';
-        popup.style.top = e.clientY - shiftY + 'px';
-    }
-
-    function stopDrag() {
-        document.removeEventListener('mousemove', moveAt, false);
-        document.removeEventListener('mouseup', stopDrag, false);
-    }
-}
