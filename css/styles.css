@@ -137,7 +137,8 @@ body.dark-mode .popup-header {
 .popup-content {
     padding: 20px;
     overflow-y: auto;
-    max-height: calc(100% - 50px); /* 50px 是 header 的高度 */
+    height: calc(100% - 50px); /* 50px 是 header 的高度 */
+    max-height: 250px; /* 确保内容区域可以滚动 */
 }
 
 .close-button {
