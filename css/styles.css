@@ -31,7 +31,7 @@ body.dark-mode {
 }
 
 body.dark-mode .search-container {
-    background-color: #444;
+    background-color: rgba(68, 68, 68, 1.0); /* 深色模式下的背景颜色 */
 }
 
 body.dark-mode .search-button {
@@ -78,7 +78,7 @@ body.material-design .engine-button {
     font-size: 16px;
     flex-grow: 1;
     margin-right: 10px;
-    background-color: rgba(255, 255, 255, 1.0); /* 确保与父容器背景一致 */
+    background-color: inherit; /* 使背景颜色继承父元素 */
     color: inherit;
 }
 
