@@ -83,8 +83,8 @@ function setPresetTheme(theme) {
             break;
         case 'dark':
             document.body.classList.add('dark-mode');
-            settingsButton.style.backgroundColor = '#444';
-            searchButton.style.backgroundColor = '#5b9f65';
+            settingsButton.style.backgroundColor = '#555';
+            searchButton.style.backgroundColor = '#555';
             localStorage.setItem('theme', 'dark');
             break;
         case 'material-you':
