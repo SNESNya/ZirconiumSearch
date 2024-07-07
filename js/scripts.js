@@ -242,8 +242,10 @@ function applyCustomColors() {
 
     var positionX = localStorage.getItem('search-container-left');
     var positionY = localStorage.getItem('search-container-top');
-    if (positionX && positionY) {
+    if (positionX) {
         document.getElementById('search-container').style.left = positionX;
+    }
+    if (positionY) {
         document.getElementById('search-container').style.top = positionY;
     }
 }
