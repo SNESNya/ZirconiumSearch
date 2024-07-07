@@ -148,7 +148,8 @@ function changeShadowSize() {
 
 function changeOpacity() {
     var opacity = document.getElementById('search-opacity').value || '1.0';
-    document.getElementById('search-container').style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+    var currentBg = window.getComputedStyle(document.getElementById('search-container')).backgroundColor;
+    document.getElementById('search-container').style.backgroundColor = currentBg.replace(/[\d\.]+\)$/g, opacity + ')');
     localStorage.setItem('search-container-opacity', opacity);
 }
 
@@ -269,7 +270,8 @@ function applyCustomColors() {
 
     var opacity = localStorage.getItem('search-container-opacity');
     if (opacity) {
-        document.getElementById('search-container').style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+        var currentBg = window.getComputedStyle(document.getElementById('search-container')).backgroundColor;
+        document.getElementById('search-container').style.backgroundColor = currentBg.replace(/[\d\.]+\)$/g, opacity + ')');
         document.getElementById('search-opacity').value = opacity;
     } else {
         document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
