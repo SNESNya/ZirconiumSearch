@@ -72,14 +72,21 @@ function setEngine(engine) {
 }
 
 function setPresetTheme(theme) {
-    document.body.classList.remove('dark-mode', 'material-you', 'material-design');
+    document.body.classList.remove('dark-mode', 'material-you', 'material-design', 'light-mode-old', 'light-mode');
     var settingsButton = document.getElementById('settings-button');
     var searchButton = document.getElementById('search-button');
     switch (theme) {
         case 'light':
+            document.body.classList.add('light-mode');
+            settingsButton.style.backgroundColor = '#000';
+            searchButton.style.backgroundColor = '#000';
+            localStorage.setItem('theme', 'light');
+            break;
+        case 'light-old':
+            document.body.classList.add('light-mode-old');
             settingsButton.style.backgroundColor = '#FF9800';
             searchButton.style.backgroundColor = '#4CAF50';
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem('theme', 'light-old');
             break;
         case 'dark':
             document.body.classList.add('dark-mode');
@@ -148,24 +155,32 @@ function resetDefaults() {
     localStorage.removeItem('settings-button-backgroundColor');
     localStorage.removeItem('search-placeholder-color');
     localStorage.removeItem('search-placeholder-text');
-    localStorage.removeItem('search-container-width');
-    localStorage.removeItem('search-container-height');
-    localStorage.removeItem('search-container-shadow-x');
-    localStorage.removeItem('search-container-shadow-y');
-    localStorage.removeItem('search-container-left');
-    localStorage.removeItem('search-container-top');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
-    document.getElementById('search-container').style.width = '300px';
-    document.getElementById('search-container').style.height = '40px';
-    document.getElementById('search-container').style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
-    document.getElementById('search-container').style.left = '0px';
-    document.getElementById('search-container').style.top = '0px';
     document.getElementById('search-query').style.color = '#000000';
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
     document.getElementById('search-query').placeholder = '输入搜索内容...';
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
+}
+
+function resetSizeDefaults() {
+    localStorage.removeItem('search-container-width');
+    localStorage.removeItem('search-container-height');
+    localStorage.removeItem('search-container-shadow-x');
+    localStorage.removeItem('search-container-shadow-y');
+
+    document.getElementById('search-container').style.width = '300px';
+    document.getElementById('search-container').style.height = '40px';
+    document.getElementById('search-container').style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+}
+
+function resetPositionDefaults() {
+    localStorage.removeItem('search-container-left');
+    localStorage.removeItem('search-container-top');
+
+    document.getElementById('search-container').style.left = '0px';
+    document.getElementById('search-container').style.top = '0px';
 }
 
 function applyCustomColors() {
@@ -240,6 +255,8 @@ window.onload = function() {
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setPresetTheme(savedTheme);
+    } else {
+        setPresetTheme('light');
     }
     applyCustomColors();
 };
