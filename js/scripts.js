@@ -74,22 +74,29 @@ function setEngine(engine) {
 function setPresetTheme(theme) {
     document.body.classList.remove('dark-mode', 'material-you', 'material-design');
     var settingsButton = document.getElementById('settings-button');
+    var searchButton = document.getElementById('search-button');
     switch (theme) {
         case 'light':
+            settingsButton.style.backgroundColor = '#FF9800';
+            searchButton.style.backgroundColor = '#4CAF50';
             localStorage.setItem('theme', 'light');
             break;
         case 'dark':
             document.body.classList.add('dark-mode');
+            settingsButton.style.backgroundColor = '#444';
+            searchButton.style.backgroundColor = '#5b9f65';
             localStorage.setItem('theme', 'dark');
             break;
         case 'material-you':
             document.body.classList.add('material-you');
             settingsButton.style.backgroundColor = '#0061a4';
+            searchButton.style.backgroundColor = '#0061a4';
             localStorage.setItem('theme', 'material-you');
             break;
         case 'material-design':
             document.body.classList.add('material-design');
             settingsButton.style.backgroundColor = '#00696e';
+            searchButton.style.backgroundColor = '#00696e';
             localStorage.setItem('theme', 'material-design');
             break;
     }
