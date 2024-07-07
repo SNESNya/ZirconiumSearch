@@ -146,12 +146,6 @@ function changeShadowSize() {
     changeShadowStrength();
 }
 
-function changeOpacity() {
-    var opacity = document.getElementById('search-opacity').value || '1.0';
-    document.getElementById('search-container').style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
-    localStorage.setItem('search-container-opacity', opacity);
-}
-
 function changeBlur() {
     var blur = document.getElementById('blur-amount').value || '0px';
     document.getElementById('search-container').style.backdropFilter = `blur(${blur})`;
@@ -171,10 +165,9 @@ function resetDefaults() {
     localStorage.removeItem('settings-button-backgroundColor');
     localStorage.removeItem('search-placeholder-color');
     localStorage.removeItem('search-placeholder-text');
-    localStorage.removeItem('search-container-opacity');
     localStorage.removeItem('search-container-blur');
     
-    document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
+    document.getElementById('search-container').style.backgroundColor = '#ffffff';
     document.getElementById('search-query').style.color = '#000000';
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
@@ -182,7 +175,6 @@ function resetDefaults() {
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
     document.getElementById('search-container').style.backdropFilter = 'none';
     document.getElementById('blur-amount').value = '0px';
-    document.getElementById('search-opacity').value = '1.0';
 }
 
 function resetSizeDefaults() {
@@ -264,15 +256,6 @@ function applyCustomColors() {
     }
     if (positionY) {
         document.getElementById('search-container').style.top = positionY;
-    }
-
-    var opacity = localStorage.getItem('search-container-opacity');
-    if (opacity) {
-        document.getElementById('search-container').style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
-        document.getElementById('search-opacity').value = opacity;
-    } else {
-        document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
-        document.getElementById('search-opacity').value = '1.0';
     }
 
     var blurBackground = localStorage.getItem('search-container-blur');
