@@ -180,9 +180,16 @@ function detectIE() {
     }
 }
 
+function detectDarkMode() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setPresetTheme('dark');
+    }
+}
+
 window.onload = function() {
     loadBackground();
     detectIE();
+    detectDarkMode();
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setPresetTheme(savedTheme);
