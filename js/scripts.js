@@ -148,8 +148,8 @@ function changeShadowSize() {
 
 function changeOpacity() {
     var opacity = document.getElementById('search-opacity').value || '1.0';
-    var currentBg = window.getComputedStyle(document.getElementById('search-container')).backgroundColor;
-    document.getElementById('search-container').style.backgroundColor = currentBg.replace(/[\d\.]+\)$/g, opacity + ')');
+    var searchContainer = document.getElementById('search-container');
+    searchContainer.style.backgroundColor = searchContainer.style.backgroundColor.replace(/[\d\.]+\)$/g, opacity + ')');
     localStorage.setItem('search-container-opacity', opacity);
 }
 
@@ -175,14 +175,13 @@ function resetDefaults() {
     localStorage.removeItem('search-container-opacity');
     localStorage.removeItem('search-container-blur');
     
-    document.getElementById('search-container').style.backgroundColor = '#ffffff';
+    document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
     document.getElementById('search-query').style.color = '#000000';
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
     document.getElementById('search-query').placeholder = '输入搜索内容...';
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
     document.getElementById('search-container').style.backdropFilter = 'none';
-    document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
     document.getElementById('blur-amount').value = '0px';
     document.getElementById('search-opacity').value = '1.0';
 }
@@ -270,8 +269,8 @@ function applyCustomColors() {
 
     var opacity = localStorage.getItem('search-container-opacity');
     if (opacity) {
-        var currentBg = window.getComputedStyle(document.getElementById('search-container')).backgroundColor;
-        document.getElementById('search-container').style.backgroundColor = currentBg.replace(/[\d\.]+\)$/g, opacity + ')');
+        var searchContainer = document.getElementById('search-container');
+        searchContainer.style.backgroundColor = searchContainer.style.backgroundColor.replace(/[\d\.]+\)$/g, opacity + ')');
         document.getElementById('search-opacity').value = opacity;
     } else {
         document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
