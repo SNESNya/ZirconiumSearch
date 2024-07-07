@@ -79,8 +79,12 @@ body.material-design .engine-button {
     font-size: 16px;
     flex-grow: 1;
     margin-right: 10px;
-    background-color: inherit; /* 使背景颜色继承父元素 */
+    background-color: rgba(255, 255, 255, 1.0); /* 纯白背景 */
     color: inherit;
+}
+
+.search-box::placeholder {
+    color: #ccc;
 }
 
 body.dark-mode .search-box::placeholder {
@@ -169,88 +173,3 @@ body.dark-mode .popup-header {
 .popup-header h2 {
     margin: 0;
     font-size: 18px;
-}
-
-.popup-content {
-    padding: 20px;
-    overflow-y: auto;
-    height: calc(100% - 50px); /* 50px 是 header 的高度 */
-    max-height: 250px; /* 确保内容区域可以滚动 */
-}
-
-.close-button {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.menu-section {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.menu-section:last-child {
-    border-bottom: none;
-}
-
-.menu-section h3 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-}
-
-.popup p {
-    margin: 0;
-    font-size: 14px;
-    text-align: center;
-    color: inherit;
-}
-
-.popup button {
-    background: none;
-    border: none;
-    padding: 10px 0;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    color: inherit;
-}
-
-.popup button:hover {
-    background-color: #f5f5f5;
-}
-
-body.dark-mode .popup button:hover {
-    background-color: #666;
-}
-
-.popup input[type="text"] {
-    width: 70px;
-    margin-left: 10px;
-}
-
-.popup input[type="checkbox"] {
-    margin-left: 10px;
-}
-
-.upload-input {
-    display: none;
-}
-
-.check-mark {
-    display: none;
-    color: green;
-}
-
-.ie-warning {
-    display: none;
-    color: white;
-    background-color: red;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.center-button {
-    text-align: center;
-}
