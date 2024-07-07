@@ -121,6 +121,20 @@ function changePlaceholderText() {
     localStorage.setItem('search-placeholder-text', text);
 }
 
+function changeSize(elementId, styleProperty) {
+    var size = event.target.value;
+    document.getElementById(elementId).style[styleProperty] = size;
+    localStorage.setItem(elementId + '-' + styleProperty, size);
+}
+
+function changeShadow() {
+    var x = document.getElementById('shadow-x').value || '0px';
+    var y = document.getElementById('shadow-y').value || '4px';
+    document.getElementById('search-container').style.boxShadow = `${x} ${y} 6px rgba(0, 0, 0, 0.1)`;
+    localStorage.setItem('search-container-shadow-x', x);
+    localStorage.setItem('search-container-shadow-y', y);
+}
+
 function resetDefaults() {
     localStorage.removeItem('search-container-backgroundColor');
     localStorage.removeItem('search-query-color');
@@ -128,8 +142,15 @@ function resetDefaults() {
     localStorage.removeItem('settings-button-backgroundColor');
     localStorage.removeItem('search-placeholder-color');
     localStorage.removeItem('search-placeholder-text');
+    localStorage.removeItem('search-container-width');
+    localStorage.removeItem('search-container-height');
+    localStorage.removeItem('search-container-shadow-x');
+    localStorage.removeItem('search-container-shadow-y');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
+    document.getElementById('search-container').style.width = '350px';
+    document.getElementById('search-container').style.height = '40px';
+    document.getElementById('search-container').style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
     document.getElementById('search-query').style.color = '#000000';
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
@@ -166,6 +187,22 @@ function applyCustomColors() {
     var searchPlaceholderText = localStorage.getItem('search-placeholder-text');
     if (searchPlaceholderText) {
         document.getElementById('search-query').placeholder = searchPlaceholderText;
+    }
+
+    var searchContainerWidth = localStorage.getItem('search-container-width');
+    if (searchContainerWidth) {
+        document.getElementById('search-container').style.width = searchContainerWidth;
+    }
+
+    var searchContainerHeight = localStorage.getItem('search-container-height');
+    if (searchContainerHeight) {
+        document.getElementById('search-container').style.height = searchContainerHeight;
+    }
+
+    var shadowX = localStorage.getItem('search-container-shadow-x');
+    var shadowY = localStorage.getItem('search-container-shadow-y');
+    if (shadowX && shadowY) {
+        document.getElementById('search-container').style.boxShadow = `${shadowX} ${shadowY} 6px rgba(0, 0, 0, 0.1)`;
     }
 }
 
