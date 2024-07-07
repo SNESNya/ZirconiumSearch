@@ -1,5 +1,6 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -179,6 +180,11 @@ body.dark-mode .popup button:hover {
     background-color: #666;
 }
 
+.popup input[type="text"] {
+    width: 70px;
+    margin-left: 10px;
+}
+
 .upload-input {
     display: none;
 }
@@ -186,4 +192,14 @@ body.dark-mode .popup button:hover {
 .check-mark {
     display: none;
     color: green;
+}
+
+.ie-warning {
+    display: none;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 14px;
 }

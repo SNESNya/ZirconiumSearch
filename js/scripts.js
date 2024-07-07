@@ -13,9 +13,6 @@ function search() {
         case 'duckduckgo':
             url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
             break;
-        case 'baidu':
-            url = 'https://www.baidu.com/s?wd=' + encodeURIComponent(query);
-            break;
         case 'wikipedia-zh':
             url = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(query);
             break;
@@ -84,10 +81,55 @@ function setTheme(theme) {
     }
 }
 
+function changeColor(elementId, styleProperty) {
+    var color = event.target.value;
+    document.getElementById(elementId).style[styleProperty] = color;
+    localStorage.setItem(elementId + '-' + styleProperty, color);
+}
+
+function resetDefaults() {
+    localStorage.removeItem('search-container-backgroundColor');
+    localStorage.removeItem('search-query-color');
+    localStorage.removeItem('search-button-backgroundColor');
+    document.getElementById('search-container').style.backgroundColor = '#ffffff';
+    document.getElementById('search-query').style.color = '#000000';
+    document.getElementById('search-button').style.backgroundColor = '#4CAF50';
+}
+
+function applyCustomColors() {
+    var searchContainerColor = localStorage.getItem('search-container-backgroundColor');
+    if (searchContainerColor) {
+        document.getElementById('search-container').style.backgroundColor = searchContainerColor;
+    }
+
+    var searchQueryColor = localStorage.getItem('search-query-color');
+    if (searchQueryColor) {
+        document.getElementById('search-query').style.color = searchQueryColor;
+    }
+
+    var searchButtonColor = localStorage.getItem('search-button-backgroundColor');
+    if (searchButtonColor) {
+        document.getElementById('search-button').style.backgroundColor = searchButtonColor;
+    }
+}
+
+function detectIE() {
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf('MSIE '); // IE 10 or older
+    var trident = ua.indexOf('Trident/'); // IE 11
+
+    if (msie > 0 || trident > 0) {
+        var warning = document.getElementById('ie-warning');
+        warning.style.display = 'block';
+    }
+}
+
 window.onload = function() {
     loadBackground();
+    detectIE();
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setTheme(savedTheme);
     }
+    applyCustomColors();
 };

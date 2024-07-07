@@ -9,11 +9,15 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="search-container">
+    <div class="search-container" id="search-container">
         <input type="text" class="search-box" id="search-query" placeholder="输入搜索内容..." onkeypress="handleKeyPress(event)">
-        <button class="search-button" onclick="search()">
+        <button class="search-button" id="search-button" onclick="search()">
             <span class="material-icons">search</span>
         </button>
+    </div>
+
+    <div class="ie-warning" id="ie-warning">
+        当前浏览器版本过低，可能会导致错误。
     </div>
 
     <button class="engine-button" onclick="togglePopup()">
@@ -31,7 +35,6 @@
                 <button onclick="setEngine('google')">Google <span id="google-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('bing')">Bing <span id="bing-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('duckduckgo')">DuckDuckGo <span id="duckduckgo-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('baidu')">Baidu <span id="baidu-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('wikipedia-zh')">Wikipedia ZH <span id="wikipedia-zh-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('wikipedia-en')">Wikipedia EN <span id="wikipedia-en-check" class="check-mark">√</span></button>
             </div>
@@ -42,8 +45,10 @@
             </div>
             <div class="menu-section">
                 <h3>主题</h3>
-                <button onclick="setTheme('light')">浅色主题</button>
-                <button onclick="setTheme('dark')">深色主题</button>
+                <button>更改搜索框颜色 <input type="text" id="search-box-color" placeholder="#ffffff" oninput="changeColor('search-container', 'backgroundColor')"></button>
+                <button>更改搜索文字颜色 <input type="text" id="search-text-color" placeholder="#000000" oninput="changeColor('search-query', 'color')"></button>
+                <button>更改搜索按钮颜色 <input type="text" id="search-button-color" placeholder="#4CAF50" oninput="changeColor('search-button', 'backgroundColor')"></button>
+                <button onclick="resetDefaults()">还原默认</button>
             </div>
             <div class="menu-section">
                 <h3>GitHub</h3>
