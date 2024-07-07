@@ -20,7 +20,7 @@
         当前浏览器版本过低，可能会导致错误。
     </div>
 
-    <button class="engine-button" onclick="togglePopup()">
+    <button class="engine-button" id="settings-button" onclick="togglePopup()">
         <span class="material-icons">settings</span>
     </button>
     
@@ -44,15 +44,26 @@
                 <button onclick="clearBackground()">清除背景图</button>
             </div>
             <div class="menu-section">
-                <h3>主题</h3>
-                <button>更改搜索框颜色 <input type="text" id="search-box-color" placeholder="#ffffff" oninput="changeColor('search-container', 'backgroundColor')"></button>
-                <button>更改搜索文字颜色 <input type="text" id="search-text-color" placeholder="#000000" oninput="changeColor('search-query', 'color')"></button>
-                <button>更改搜索按钮颜色 <input type="text" id="search-button-color" placeholder="#4CAF50" oninput="changeColor('search-button', 'backgroundColor')"></button>
+                <h3>预置主题</h3>
+                <button onclick="setPresetTheme('light')">浅色主题</button>
+                <button onclick="setPresetTheme('dark')">深色主题</button>
+                <button onclick="setPresetTheme('material-you')">Material You</button>
+                <button onclick="setPresetTheme('material-design')">Material Design</button>
+            </div>
+            <div class="menu-section">
+                <h3>自定义主题</h3>
+                <button>搜索框颜色 <input type="text" id="search-box-color" placeholder="#ffffff" oninput="changeColor('search-container', 'backgroundColor')"></button>
+                <button>搜索框预文本颜色 <input type="text" id="search-placeholder-color" placeholder="#ccc" oninput="changePlaceholderColor()"></button>
+                <button>搜索框预文本 <input type="text" id="search-placeholder-text" placeholder="输入搜索内容..." oninput="changePlaceholderText()"></button>
+                <button>搜索文字颜色 <input type="text" id="search-text-color" placeholder="#000000" oninput="changeColor('search-query', 'color')"></button>
+                <button>搜索按钮颜色 <input type="text" id="search-button-color" placeholder="#4CAF50" oninput="changeColor('search-button', 'backgroundColor')"></button>
+                <button>设置按钮颜色 <input type="text" id="settings-button-color" placeholder="#FF9800" oninput="changeColor('settings-button', 'backgroundColor')"></button>
                 <button onclick="resetDefaults()">还原默认</button>
             </div>
             <div class="menu-section">
-                <h3>GitHub</h3>
+                <h3>关于</h3>
                 <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
+                <button>版本号 0.0.2</button>
             </div>
         </div>
     </div>

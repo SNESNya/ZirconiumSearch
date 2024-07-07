@@ -71,13 +71,27 @@ function setEngine(engine) {
     document.getElementById(engine + '-check').style.display = 'inline';
 }
 
-function setTheme(theme) {
-    if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('theme', 'light');
+function setPresetTheme(theme) {
+    document.body.classList.remove('dark-mode', 'material-you', 'material-design');
+    var settingsButton = document.getElementById('settings-button');
+    switch (theme) {
+        case 'light':
+            localStorage.setItem('theme', 'light');
+            break;
+        case 'dark':
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            break;
+        case 'material-you':
+            document.body.classList.add('material-you');
+            settingsButton.style.backgroundColor = '#0061a4';
+            localStorage.setItem('theme', 'material-you');
+            break;
+        case 'material-design':
+            document.body.classList.add('material-design');
+            settingsButton.style.backgroundColor = '#00696e';
+            localStorage.setItem('theme', 'material-design');
+            break;
     }
 }
 
@@ -87,13 +101,33 @@ function changeColor(elementId, styleProperty) {
     localStorage.setItem(elementId + '-' + styleProperty, color);
 }
 
+function changePlaceholderColor() {
+    var color = document.getElementById('search-placeholder-color').value;
+    var searchBox = document.getElementById('search-query');
+    searchBox.style.setProperty('--placeholder-color', color);
+    localStorage.setItem('search-placeholder-color', color);
+}
+
+function changePlaceholderText() {
+    var text = document.getElementById('search-placeholder-text').value;
+    document.getElementById('search-query').placeholder = text;
+    localStorage.setItem('search-placeholder-text', text);
+}
+
 function resetDefaults() {
     localStorage.removeItem('search-container-backgroundColor');
     localStorage.removeItem('search-query-color');
     localStorage.removeItem('search-button-backgroundColor');
+    localStorage.removeItem('settings-button-backgroundColor');
+    localStorage.removeItem('search-placeholder-color');
+    localStorage.removeItem('search-placeholder-text');
+    
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
     document.getElementById('search-query').style.color = '#000000';
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
+    document.getElementById('settings-button').style.backgroundColor = '#FF9800';
+    document.getElementById('search-query').placeholder = '输入搜索内容...';
+    document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
 }
 
 function applyCustomColors() {
@@ -110,6 +144,21 @@ function applyCustomColors() {
     var searchButtonColor = localStorage.getItem('search-button-backgroundColor');
     if (searchButtonColor) {
         document.getElementById('search-button').style.backgroundColor = searchButtonColor;
+    }
+
+    var settingsButtonColor = localStorage.getItem('settings-button-backgroundColor');
+    if (settingsButtonColor) {
+        document.getElementById('settings-button').style.backgroundColor = settingsButtonColor;
+    }
+
+    var searchPlaceholderColor = localStorage.getItem('search-placeholder-color');
+    if (searchPlaceholderColor) {
+        document.getElementById('search-query').style.setProperty('--placeholder-color', searchPlaceholderColor);
+    }
+
+    var searchPlaceholderText = localStorage.getItem('search-placeholder-text');
+    if (searchPlaceholderText) {
+        document.getElementById('search-query').placeholder = searchPlaceholderText;
     }
 }
 
@@ -129,7 +178,7 @@ window.onload = function() {
     detectIE();
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-        setTheme(savedTheme);
+        setPresetTheme(savedTheme);
     }
     applyCustomColors();
 };
