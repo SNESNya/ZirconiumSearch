@@ -1,191 +1,225 @@
-var currentEngine = 'bing';
-
-function search() {
-    var query = document.getElementById('search-query').value;
-    var url;
-    switch (currentEngine) {
-        case 'google':
-            url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-            break;
-        case 'bing':
-            url = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
-            break;
-        case 'duckduckgo':
-            url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
-            break;
-        case 'wikipedia-zh':
-            url = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(query);
-            break;
-        case 'wikipedia-en':
-            url = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query);
-            break;
-    }
-    window.location.href = url;
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: background-image 0.5s ease, background-color 0.5s ease;
+    color: #000;
 }
 
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        search();
-    }
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
 }
 
-function changeBackground(event) {
-    var file = event.target.files[0];
-    if (file) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            var imageUrl = e.target.result;
-            document.body.style.backgroundImage = 'url(' + imageUrl + ')';
-            localStorage.setItem('backgroundImage', imageUrl);
-        };
-        reader.readAsDataURL(file);
-    }
+body.dark-mode .search-container {
+    background-color: #444;
 }
 
-function clearBackground() {
-    document.body.style.backgroundImage = '';
-    localStorage.removeItem('backgroundImage');
+body.dark-mode .search-button {
+    background-color: #555;
 }
 
-function loadBackground() {
-    var backgroundImage = localStorage.getItem('backgroundImage');
-    if (backgroundImage) {
-        document.body.style.backgroundImage = 'url(' + backgroundImage + ')';
-    }
+body.dark-mode .engine-button {
+    background-color: #555;
 }
 
-function togglePopup() {
-    var popup = document.getElementById('settings-popup');
-    if (popup.style.display === 'none' || popup.style.display === '') {
-        popup.style.display = 'block';
-    } else {
-        popup.style.display = 'none';
-    }
+body.material-you .search-button {
+    background-color: #0061a4;
 }
 
-function setEngine(engine) {
-    currentEngine = engine;
-    document.querySelectorAll('.check-mark').forEach(function(check) {
-        check.style.display = 'none';
-    });
-    document.getElementById(engine + '-check').style.display = 'inline';
+body.material-you .engine-button {
+    background-color: #0061a4;
 }
 
-function setPresetTheme(theme) {
-    document.body.classList.remove('dark-mode', 'material-you', 'material-design');
-    var settingsButton = document.getElementById('settings-button');
-    var searchButton = document.getElementById('search-button');
-    switch (theme) {
-        case 'light':
-            settingsButton.style.backgroundColor = '#FF9800';
-            searchButton.style.backgroundColor = '#4CAF50';
-            localStorage.setItem('theme', 'light');
-            break;
-        case 'dark':
-            document.body.classList.add('dark-mode');
-            settingsButton.style.backgroundColor = '#555';
-            searchButton.style.backgroundColor = '#555';
-            localStorage.setItem('theme', 'dark');
-            break;
-        case 'material-you':
-            document.body.classList.add('material-you');
-            settingsButton.style.backgroundColor = '#0061a4';
-            searchButton.style.backgroundColor = '#0061a4';
-            localStorage.setItem('theme', 'material-you');
-            break;
-        case 'material-design':
-            document.body.classList.add('material-design');
-            settingsButton.style.backgroundColor = '#00696e';
-            searchButton.style.backgroundColor = '#00696e';
-            localStorage.setItem('theme', 'material-design');
-            break;
-    }
+body.material-design .search-button {
+    background-color: #00696e;
 }
 
-function changeColor(elementId, styleProperty) {
-    var color = event.target.value;
-    document.getElementById(elementId).style[styleProperty] = color;
-    localStorage.setItem(elementId + '-' + styleProperty, color);
+body.material-design .engine-button {
+    background-color: #00696e;
 }
 
-function changePlaceholderColor() {
-    var color = document.getElementById('search-placeholder-color').value;
-    var searchBox = document.getElementById('search-query');
-    searchBox.style.setProperty('--placeholder-color', color);
-    localStorage.setItem('search-placeholder-color', color);
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 350px;
 }
 
-function changePlaceholderText() {
-    var text = document.getElementById('search-placeholder-text').value;
-    document.getElementById('search-query').placeholder = text;
-    localStorage.setItem('search-placeholder-text', text);
+.search-box {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex-grow: 1;
+    margin-right: 10px;
+    background-color: inherit;
+    color: inherit;
 }
 
-function resetDefaults() {
-    localStorage.removeItem('search-container-backgroundColor');
-    localStorage.removeItem('search-query-color');
-    localStorage.removeItem('search-button-backgroundColor');
-    localStorage.removeItem('settings-button-backgroundColor');
-    localStorage.removeItem('search-placeholder-color');
-    localStorage.removeItem('search-placeholder-text');
-    
-    document.getElementById('search-container').style.backgroundColor = '#ffffff';
-    document.getElementById('search-query').style.color = '#000000';
-    document.getElementById('search-button').style.backgroundColor = '#4CAF50';
-    document.getElementById('settings-button').style.backgroundColor = '#FF9800';
-    document.getElementById('search-query').placeholder = '输入搜索内容...';
-    document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
+body.dark-mode .search-box::placeholder {
+    color: #ccc;
 }
 
-function applyCustomColors() {
-    var searchContainerColor = localStorage.getItem('search-container-backgroundColor');
-    if (searchContainerColor) {
-        document.getElementById('search-container').style.backgroundColor = searchContainerColor;
-    }
-
-    var searchQueryColor = localStorage.getItem('search-query-color');
-    if (searchQueryColor) {
-        document.getElementById('search-query').style.color = searchQueryColor;
-    }
-
-    var searchButtonColor = localStorage.getItem('search-button-backgroundColor');
-    if (searchButtonColor) {
-        document.getElementById('search-button').style.backgroundColor = searchButtonColor;
-    }
-
-    var settingsButtonColor = localStorage.getItem('settings-button-backgroundColor');
-    if (settingsButtonColor) {
-        document.getElementById('settings-button').style.backgroundColor = settingsButtonColor;
-    }
-
-    var searchPlaceholderColor = localStorage.getItem('search-placeholder-color');
-    if (searchPlaceholderColor) {
-        document.getElementById('search-query').style.setProperty('--placeholder-color', searchPlaceholderColor);
-    }
-
-    var searchPlaceholderText = localStorage.getItem('search-placeholder-text');
-    if (searchPlaceholderText) {
-        document.getElementById('search-query').placeholder = searchPlaceholderText;
-    }
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s;
 }
 
-function detectIE() {
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf('MSIE '); // IE 10 or older
-    var trident = ua.indexOf('Trident/'); // IE 11
-
-    if (msie > 0 || trident > 0) {
-        var warning = document.getElementById('ie-warning');
-        warning.style.display = 'block';
-    }
+.search-button:hover {
+    background-color: #45a049;
 }
 
-window.onload = function() {
-    loadBackground();
-    detectIE();
-    var savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        setPresetTheme(savedTheme);
-    }
-    applyCustomColors();
-};
+.engine-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.engine-button:hover {
+    background-color: #e68900;
+}
+
+body.dark-mode .engine-button {
+    background-color: #555;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* 减小窗口宽度 */
+    max-height: 300px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+body.dark-mode .popup {
+    background-color: #444;
+    color: #fff;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+body.dark-mode .popup-header {
+    background-color: #555;
+    border-bottom: 1px solid #666;
+}
+
+.popup-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.popup-content {
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100% - 50px); /* 50px 是 header 的高度 */
+    max-height: 250px; /* 确保内容区域可以滚动 */
+}
+
+.close-button {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.menu-section {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-section:last-child {
+    border-bottom: none;
+}
+
+.menu-section h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.popup button {
+    background: none;
+    border: none;
+    padding: 10px 0;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: inherit;
+}
+
+.popup button:hover {
+    background-color: #f5f5f5;
+}
+
+body.dark-mode .popup button:hover {
+    background-color: #666;
+}
+
+.popup input[type="text"] {
+    width: 70px;
+    margin-left: 10px;
+}
+
+.upload-input {
+    display: none;
+}
+
+.check-mark {
+    display: none;
+    color: green;
+}
+
+.ie-warning {
+    display: none;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
