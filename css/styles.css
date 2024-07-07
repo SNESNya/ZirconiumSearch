@@ -14,37 +14,41 @@ body {
     color: #000;
 }
 
-body.dark-mode {
-    background-color: #333;
-    color: #fff;
-}
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #fff;
+        background-color: #333;
+    }
 
-body.dark-mode .search-container {
-    background-color: #444;
-}
+    .search-container {
+        background-color: #444;
+    }
 
-body.dark-mode .search-button {
-    background-color: #555;
-}
+    .search-box::placeholder {
+        color: #ccc;
+    }
 
-body.dark-mode .engine-button {
-    background-color: #555;
-}
+    .search-button {
+        background-color: #555;
+    }
 
-body.material-you .search-button {
-    background-color: #0061a4;
-}
+    .engine-button {
+        background-color: #555;
+    }
 
-body.material-you .engine-button {
-    background-color: #0061a4;
-}
+    .popup {
+        background-color: #444;
+        color: #fff;
+    }
 
-body.material-design .search-button {
-    background-color: #00696e;
-}
+    .popup-header {
+        background-color: #555;
+        border-bottom: 1px solid #666;
+    }
 
-body.material-design .engine-button {
-    background-color: #00696e;
+    .popup button:hover {
+        background-color: #666;
+    }
 }
 
 .search-container {
