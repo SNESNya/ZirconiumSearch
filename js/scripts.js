@@ -134,12 +134,10 @@ function changeSize(elementId, styleProperty) {
     localStorage.setItem(elementId + '-' + styleProperty, size);
 }
 
-function changeShadow() {
-    var x = document.getElementById('shadow-x').value || '0px';
-    var y = document.getElementById('shadow-y').value || '4px';
-    document.getElementById('search-container').style.boxShadow = `${x} ${y} 6px rgba(0, 0, 0, 0.1)`;
-    localStorage.setItem('search-container-shadow-x', x);
-    localStorage.setItem('search-container-shadow-y', y);
+function changeShadowStrength() {
+    var strength = document.getElementById('shadow-strength').value || '0.1';
+    document.getElementById('search-container').style.boxShadow = `0px 4px 6px rgba(0, 0, 0, ${strength})`;
+    localStorage.setItem('search-container-shadow-strength', strength);
 }
 
 function changePosition(elementId, styleProperty) {
@@ -167,8 +165,7 @@ function resetDefaults() {
 function resetSizeDefaults() {
     localStorage.removeItem('search-container-width');
     localStorage.removeItem('search-container-height');
-    localStorage.removeItem('search-container-shadow-x');
-    localStorage.removeItem('search-container-shadow-y');
+    localStorage.removeItem('search-container-shadow-strength');
 
     document.getElementById('search-container').style.width = '300px';
     document.getElementById('search-container').style.height = '40px';
@@ -181,6 +178,12 @@ function resetPositionDefaults() {
 
     document.getElementById('search-container').style.left = '0px';
     document.getElementById('search-container').style.top = '0px';
+}
+
+function resetAllDefaults() {
+    resetDefaults();
+    resetSizeDefaults();
+    resetPositionDefaults();
 }
 
 function applyCustomColors() {
@@ -224,10 +227,9 @@ function applyCustomColors() {
         document.getElementById('search-container').style.height = searchContainerHeight;
     }
 
-    var shadowX = localStorage.getItem('search-container-shadow-x');
-    var shadowY = localStorage.getItem('search-container-shadow-y');
-    if (shadowX && shadowY) {
-        document.getElementById('search-container').style.boxShadow = `${shadowX} ${shadowY} 6px rgba(0, 0, 0, 0.1)`;
+    var shadowStrength = localStorage.getItem('search-container-shadow-strength');
+    if (shadowStrength) {
+        document.getElementById('search-container').style.boxShadow = `0px 4px 6px rgba(0, 0, 0, ${shadowStrength})`;
     }
 
     var positionX = localStorage.getItem('search-container-left');
