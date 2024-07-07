@@ -31,8 +31,9 @@
         </div>
         <div class="popup-content">
             <div class="menu-section">
-                <p>QuickSP-0.0.3-Release1</p>
+                <p>QuickSP-0.0.3</p>
                 <p>可向下滑动</p>
+                <button onclick="resetAllDefaults()">还原全部设置为默认</button>
                 <h3>更换搜索引擎</h3>
                 <button onclick="setEngine('google')">Google <span id="google-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('bing')">Bing <span id="bing-check" class="check-mark">√</span></button>
@@ -67,8 +68,7 @@
                 <h3>自定义大小</h3>
                 <button>搜索框长度 <input type="text" id="search-width" placeholder="300px" oninput="changeSize('search-container', 'width')"></button>
                 <button>搜索框宽度 <input type="text" id="search-height" placeholder="40px" oninput="changeSize('search-container', 'height')"></button>
-                <button>阴影 X轴 <input type="text" id="shadow-x" placeholder="0px" oninput="changeShadow()"></button>
-                <button>阴影 Y轴 <input type="text" id="shadow-y" placeholder="4px" oninput="changeShadow()"></button>
+                <button>阴影强度 <input type="text" id="shadow-strength" placeholder="0.1" oninput="changeShadowStrength()"></button>
                 <button onclick="resetSizeDefaults()">还原默认</button>
             </div>
             <div class="menu-section">
@@ -80,7 +80,7 @@
             <div class="menu-section">
                 <h3>关于</h3>
                 <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
-                <button>版本号 0.0.3-Release1</button>
+                <button>版本号 0.0.3</button>
             </div>
         </div>
     </div>
