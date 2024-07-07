@@ -136,8 +136,14 @@ function changeSize(elementId, styleProperty) {
 
 function changeShadowStrength() {
     var strength = document.getElementById('shadow-strength').value || '0.1';
-    document.getElementById('search-container').style.boxShadow = `0px 4px 6px rgba(0, 0, 0, ${strength})`;
+    var size = document.getElementById('shadow-size').value || '6px';
+    document.getElementById('search-container').style.boxShadow = `0px 4px ${size} rgba(0, 0, 0, ${strength})`;
     localStorage.setItem('search-container-shadow-strength', strength);
+    localStorage.setItem('search-container-shadow-size', size);
+}
+
+function changeShadowSize() {
+    changeShadowStrength();
 }
 
 function changePosition(elementId, styleProperty) {
@@ -166,6 +172,7 @@ function resetSizeDefaults() {
     localStorage.removeItem('search-container-width');
     localStorage.removeItem('search-container-height');
     localStorage.removeItem('search-container-shadow-strength');
+    localStorage.removeItem('search-container-shadow-size');
 
     document.getElementById('search-container').style.width = '300px';
     document.getElementById('search-container').style.height = '40px';
@@ -228,8 +235,9 @@ function applyCustomColors() {
     }
 
     var shadowStrength = localStorage.getItem('search-container-shadow-strength');
-    if (shadowStrength) {
-        document.getElementById('search-container').style.boxShadow = `0px 4px 6px rgba(0, 0, 0, ${shadowStrength})`;
+    var shadowSize = localStorage.getItem('search-container-shadow-size');
+    if (shadowStrength && shadowSize) {
+        document.getElementById('search-container').style.boxShadow = `0px 4px ${shadowSize} rgba(0, 0, 0, ${shadowStrength})`;
     }
 
     var positionX = localStorage.getItem('search-container-left');
