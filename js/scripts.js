@@ -135,6 +135,12 @@ function changeShadow() {
     localStorage.setItem('search-container-shadow-y', y);
 }
 
+function changePosition(elementId, styleProperty) {
+    var position = event.target.value;
+    document.getElementById(elementId).style[styleProperty] = position;
+    localStorage.setItem(elementId + '-' + styleProperty, position);
+}
+
 function resetDefaults() {
     localStorage.removeItem('search-container-backgroundColor');
     localStorage.removeItem('search-query-color');
@@ -146,11 +152,15 @@ function resetDefaults() {
     localStorage.removeItem('search-container-height');
     localStorage.removeItem('search-container-shadow-x');
     localStorage.removeItem('search-container-shadow-y');
+    localStorage.removeItem('search-container-left');
+    localStorage.removeItem('search-container-top');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
-    document.getElementById('search-container').style.width = '350px';
+    document.getElementById('search-container').style.width = '300px';
     document.getElementById('search-container').style.height = '40px';
     document.getElementById('search-container').style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+    document.getElementById('search-container').style.left = '0px';
+    document.getElementById('search-container').style.top = '0px';
     document.getElementById('search-query').style.color = '#000000';
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
@@ -203,6 +213,13 @@ function applyCustomColors() {
     var shadowY = localStorage.getItem('search-container-shadow-y');
     if (shadowX && shadowY) {
         document.getElementById('search-container').style.boxShadow = `${shadowX} ${shadowY} 6px rgba(0, 0, 0, 0.1)`;
+    }
+
+    var positionX = localStorage.getItem('search-container-left');
+    var positionY = localStorage.getItem('search-container-top');
+    if (positionX && positionY) {
+        document.getElementById('search-container').style.left = positionX;
+        document.getElementById('search-container').style.top = positionY;
     }
 }
 
