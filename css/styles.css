@@ -23,16 +23,24 @@ body.dark-mode .search-container {
     background-color: #444;
 }
 
+body.dark-mode .search-button {
+    background-color: #5b9f65;
+}
+
+body.dark-mode .engine-button {
+    background-color: #444;
+}
+
 body.material-you .search-button {
+    background-color: #0061a4;
+}
+
+body.material-you .engine-button {
     background-color: #0061a4;
 }
 
 body.material-design .search-button {
     background-color: #00696e;
-}
-
-body.material-you .engine-button {
-    background-color: #0061a4;
 }
 
 body.material-design .engine-button {
@@ -105,7 +113,7 @@ body.dark-mode .search-box::placeholder {
 }
 
 body.dark-mode .engine-button {
-    background-color: #e68900;
+    background-color: #444;
 }
 
 .popup {
