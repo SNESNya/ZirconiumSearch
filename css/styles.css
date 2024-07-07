@@ -31,7 +31,7 @@ body.dark-mode {
 }
 
 body.dark-mode .search-container {
-    background-color: rgba(68, 68, 68, 1.0); /* 深色模式下的背景颜色 */
+    background-color: #444; /* 深色模式下的背景颜色 */
 }
 
 body.dark-mode .search-button {
@@ -61,7 +61,7 @@ body.material-design .engine-button {
 .search-container {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 1.0); /* 默认无透明 */
+    background-color: #ffffff; /* 默认纯白背景 */
     border-radius: 28px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -79,16 +79,20 @@ body.material-design .engine-button {
     font-size: 16px;
     flex-grow: 1;
     margin-right: 10px;
-    background-color: rgba(255, 255, 255, 1.0); /* 纯白背景 */
+    background-color: inherit; /* 使背景颜色继承父元素 */
     color: inherit;
 }
 
-.search-box::placeholder {
-    color: #ccc;
-    background-color: rgba(255, 255, 255, 1.0); /* 确保预置文本背景颜色一致 */
+body.dark-mode .search-box {
+    background-color: #444; /* 深色模式下的背景颜色 */
+    color: #fff;
 }
 
 body.dark-mode .search-box::placeholder {
+    color: #ccc;
+}
+
+.search-box::placeholder {
     color: #ccc;
 }
 
