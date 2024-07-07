@@ -146,6 +146,18 @@ function changeShadowSize() {
     changeShadowStrength();
 }
 
+function changeOpacity() {
+    var opacity = document.getElementById('search-opacity').value || '1.0';
+    document.getElementById('search-container').style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+    localStorage.setItem('search-container-opacity', opacity);
+}
+
+function changeBlur() {
+    var blur = document.getElementById('blur-amount').value || '0px';
+    document.getElementById('search-container').style.backdropFilter = `blur(${blur})`;
+    localStorage.setItem('search-container-blur', blur);
+}
+
 function changePosition(elementId, styleProperty) {
     var position = event.target.value;
     document.getElementById(elementId).style[styleProperty] = position;
@@ -159,6 +171,7 @@ function resetDefaults() {
     localStorage.removeItem('settings-button-backgroundColor');
     localStorage.removeItem('search-placeholder-color');
     localStorage.removeItem('search-placeholder-text');
+    localStorage.removeItem('search-container-opacity');
     localStorage.removeItem('search-container-blur');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
@@ -168,7 +181,9 @@ function resetDefaults() {
     document.getElementById('search-query').placeholder = '输入搜索内容...';
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
     document.getElementById('search-container').style.backdropFilter = 'none';
-    document.getElementById('blur-background').checked = false;
+    document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
+    document.getElementById('blur-amount').value = '0px';
+    document.getElementById('search-opacity').value = '1.0';
 }
 
 function resetSizeDefaults() {
@@ -194,17 +209,6 @@ function resetAllDefaults() {
     resetDefaults();
     resetSizeDefaults();
     resetPositionDefaults();
-}
-
-function toggleBlurBackground() {
-    var blurEnabled = document.getElementById('blur-background').checked;
-    if (blurEnabled) {
-        document.getElementById('search-container').style.backdropFilter = 'blur(10px)';
-        localStorage.setItem('search-container-blur', 'blur(10px)');
-    } else {
-        document.getElementById('search-container').style.backdropFilter = 'none';
-        localStorage.removeItem('search-container-blur');
-    }
 }
 
 function applyCustomColors() {
@@ -263,13 +267,22 @@ function applyCustomColors() {
         document.getElementById('search-container').style.top = positionY;
     }
 
+    var opacity = localStorage.getItem('search-container-opacity');
+    if (opacity) {
+        document.getElementById('search-container').style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+        document.getElementById('search-opacity').value = opacity;
+    } else {
+        document.getElementById('search-container').style.backgroundColor = 'rgba(255, 255, 255, 1.0)';
+        document.getElementById('search-opacity').value = '1.0';
+    }
+
     var blurBackground = localStorage.getItem('search-container-blur');
     if (blurBackground) {
-        document.getElementById('search-container').style.backdropFilter = blurBackground;
-        document.getElementById('blur-background').checked = true;
+        document.getElementById('search-container').style.backdropFilter = `blur(${blurBackground})`;
+        document.getElementById('blur-amount').value = blurBackground;
     } else {
         document.getElementById('search-container').style.backdropFilter = 'none';
-        document.getElementById('blur-background').checked = false;
+        document.getElementById('blur-amount').value = '0px';
     }
 }
 
