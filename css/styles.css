@@ -61,7 +61,7 @@ body.material-design .engine-button {
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.7); /* 半透明背景 */
     border-radius: 28px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -69,6 +69,7 @@ body.material-design .engine-button {
     position: relative;
     left: 0px;
     top: 0px;
+    backdrop-filter: none; /* 默认无模糊效果 */
 }
 
 .search-box {
@@ -223,6 +224,10 @@ body.dark-mode .popup button:hover {
 
 .popup input[type="text"] {
     width: 70px;
+    margin-left: 10px;
+}
+
+.popup input[type="checkbox"] {
     margin-left: 10px;
 }
 
