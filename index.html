@@ -31,7 +31,7 @@
         </div>
         <div class="popup-content">
             <div class="menu-section">
-                <p>QuickSP-0.0.3-Beta1</p>
+                <p>QuickSP-0.0.3-Beta2</p>
                 <p>可向下滑动</p>
                 <h3>更换搜索引擎</h3>
                 <button onclick="setEngine('google')">Google <span id="google-check" class="check-mark">√</span></button>
@@ -61,6 +61,13 @@
                 <button>搜索按钮颜色 <input type="text" id="search-button-color" placeholder="#4CAF50" oninput="changeColor('search-button', 'backgroundColor')"></button>
                 <button>设置按钮颜色 <input type="text" id="settings-button-color" placeholder="#FF9800" oninput="changeColor('settings-button', 'backgroundColor')"></button>
                 <button onclick="resetDefaults()">还原默认</button>
+            </div>
+            <div class="menu-section">
+                <h3>自定义大小</h3>
+                <button>搜索框长度 <input type="text" id="search-width" placeholder="350px" oninput="changeSize('search-container', 'width')"></button>
+                <button>搜索框宽度 <input type="text" id="search-height" placeholder="40px" oninput="changeSize('search-container', 'height')"></button>
+                <button>阴影 X轴 <input type="text" id="shadow-x" placeholder="0px" oninput="changeShadow()"></button>
+                <button>阴影 Y轴 <input type="text" id="shadow-y" placeholder="4px" oninput="changeShadow()"></button>
             </div>
             <div class="menu-section">
                 <h3>关于</h3>
