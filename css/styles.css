@@ -223,34 +223,3 @@ body.dark-mode .popup button:hover {
     border-radius: 5px;
     font-size: 14px;
 }
-
-/* 检测系统深色模式 */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #333;
-        color: #fff;
-    }
-    .search-container {
-        background-color: #444;
-    }
-    .search-button {
-        background-color: #555;
-    }
-    .engine-button {
-        background-color: #555;
-    }
-    .popup {
-        background-color: #444;
-        color: #fff;
-    }
-    .popup-header {
-        background-color: #555;
-        border-bottom: 1px solid #666;
-    }
-    .popup button:hover {
-        background-color: #666;
-    }
-    .search-box::placeholder {
-        color: #ccc;
-    }
-}
