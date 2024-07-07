@@ -159,6 +159,7 @@ function resetDefaults() {
     localStorage.removeItem('settings-button-backgroundColor');
     localStorage.removeItem('search-placeholder-color');
     localStorage.removeItem('search-placeholder-text');
+    localStorage.removeItem('search-container-blur');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
     document.getElementById('search-query').style.color = '#000000';
@@ -166,6 +167,8 @@ function resetDefaults() {
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
     document.getElementById('search-query').placeholder = '输入搜索内容...';
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
+    document.getElementById('search-container').style.backdropFilter = 'none';
+    document.getElementById('blur-background').checked = false;
 }
 
 function resetSizeDefaults() {
@@ -191,6 +194,17 @@ function resetAllDefaults() {
     resetDefaults();
     resetSizeDefaults();
     resetPositionDefaults();
+}
+
+function toggleBlurBackground() {
+    var blurEnabled = document.getElementById('blur-background').checked;
+    if (blurEnabled) {
+        document.getElementById('search-container').style.backdropFilter = 'blur(10px)';
+        localStorage.setItem('search-container-blur', 'blur(10px)');
+    } else {
+        document.getElementById('search-container').style.backdropFilter = 'none';
+        localStorage.removeItem('search-container-blur');
+    }
 }
 
 function applyCustomColors() {
@@ -247,6 +261,15 @@ function applyCustomColors() {
     }
     if (positionY) {
         document.getElementById('search-container').style.top = positionY;
+    }
+
+    var blurBackground = localStorage.getItem('search-container-blur');
+    if (blurBackground) {
+        document.getElementById('search-container').style.backdropFilter = blurBackground;
+        document.getElementById('blur-background').checked = true;
+    } else {
+        document.getElementById('search-container').style.backdropFilter = 'none';
+        document.getElementById('blur-background').checked = false;
     }
 }
 
