@@ -244,3 +244,7 @@ body.dark-mode .popup button:hover {
     border-radius: 5px;
     font-size: 14px;
 }
+
+.center-button {
+    text-align: center;
+}
