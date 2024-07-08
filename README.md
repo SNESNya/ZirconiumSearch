@@ -4,4 +4,4 @@
  - https://quicksp.vercel.app
  - https://snesnya.github.io/QuickSP-Web
 
-> 习近平我操你妈的 GitCode我操你妈的
+> GitCode我操你妈的
