@@ -146,12 +146,6 @@ function changeShadowSize() {
     changeShadowStrength();
 }
 
-function changeBlur() {
-    var blur = document.getElementById('blur-amount').value || '0px';
-    document.getElementById('search-container').style.backdropFilter = `blur(${blur})`;
-    localStorage.setItem('search-container-blur', blur);
-}
-
 function changePosition(elementId, styleProperty) {
     var position = event.target.value;
     document.getElementById(elementId).style[styleProperty] = position;
@@ -165,7 +159,6 @@ function resetDefaults() {
     localStorage.removeItem('settings-button-backgroundColor');
     localStorage.removeItem('search-placeholder-color');
     localStorage.removeItem('search-placeholder-text');
-    localStorage.removeItem('search-container-blur');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
     document.getElementById('search-query').style.color = '#000000';
@@ -173,8 +166,6 @@ function resetDefaults() {
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
     document.getElementById('search-query').placeholder = '输入搜索内容...';
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
-    document.getElementById('search-container').style.backdropFilter = 'none';
-    document.getElementById('blur-amount').value = '0px';
 }
 
 function resetSizeDefaults() {
@@ -256,15 +247,6 @@ function applyCustomColors() {
     }
     if (positionY) {
         document.getElementById('search-container').style.top = positionY;
-    }
-
-    var blurBackground = localStorage.getItem('search-container-blur');
-    if (blurBackground) {
-        document.getElementById('search-container').style.backdropFilter = `blur(${blurBackground})`;
-        document.getElementById('blur-amount').value = blurBackground;
-    } else {
-        document.getElementById('search-container').style.backdropFilter = 'none';
-        document.getElementById('blur-amount').value = '0px';
     }
 }
 
