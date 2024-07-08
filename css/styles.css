@@ -31,7 +31,7 @@ body.dark-mode {
 }
 
 body.dark-mode .search-container {
-    background-color: #444; /* 深色模式下的背景颜色 */
+    background-color: #444;
 }
 
 body.dark-mode .search-button {
@@ -61,7 +61,7 @@ body.material-design .engine-button {
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #ffffff; /* 默认纯白背景 */
+    background-color: #ffffff;
     border-radius: 28px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -69,8 +69,6 @@ body.material-design .engine-button {
     position: relative;
     left: 0px;
     top: 0px;
-    backdrop-filter: none; /* 默认无模糊效果 */
-    transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
 }
 
 .search-box {
@@ -79,20 +77,11 @@ body.material-design .engine-button {
     font-size: 16px;
     flex-grow: 1;
     margin-right: 10px;
-    background-color: inherit; /* 使背景颜色继承父元素 */
+    background-color: inherit;
     color: inherit;
 }
 
-body.dark-mode .search-box {
-    background-color: #444; /* 深色模式下的背景颜色 */
-    color: #fff;
-}
-
 body.dark-mode .search-box::placeholder {
-    color: #ccc;
-}
-
-.search-box::placeholder {
     color: #ccc;
 }
 
@@ -234,10 +223,6 @@ body.dark-mode .popup button:hover {
 
 .popup input[type="text"] {
     width: 70px;
-    margin-left: 10px;
-}
-
-.popup input[type="checkbox"] {
     margin-left: 10px;
 }
 
