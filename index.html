@@ -66,6 +66,15 @@
                 <button onclick="resetDefaults()">还原默认</button>
             </div>
             <div class="menu-section">
+                <h3>自定义Logo</h3>
+                <button onclick="document.getElementById('logo-upload').click()">上传Logo</button>
+                <input type="file" id="logo-upload" class="upload-input" accept="image/*" onchange="changeLogo(event)">
+                <button onclick="setLogoText()">设置Logo文本</button>
+                <input type="text" id="logo-text" placeholder="输入Logo文本">
+                <button onclick="clearLogo()">清除Logo</button>
+                <button onclick="resetLogoDefaults()">还原默认</button>
+            </div>
+            <div class="menu-section">
                 <h3>自定义大小</h3>
                 <button>搜索框长度 <input type="text" id="search-width" placeholder="300px" oninput="changeSize('search-container', 'width')"></button>
                 <button>搜索框宽度 <input type="text" id="search-height" placeholder="40px" oninput="changeSize('search-container', 'height')"></button>
