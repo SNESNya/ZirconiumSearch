@@ -25,6 +25,10 @@ function search() {
         case 'wikipedia-en':
             url = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query);
             break;
+        case 'custom':
+            var customUrl = localStorage.getItem('customEngineUrl');
+            url = customUrl.replace('%s', encodeURIComponent(query));
+            break;
     }
     window.location.href = url;
 }
@@ -62,6 +66,15 @@ function loadBackground() {
 
 function togglePopup() {
     var popup = document.getElementById('settings-popup');
+    if (popup.style.display === 'none' || popup.style.display === '') {
+        popup.style.display = 'block';
+    } else {
+        popup.style.display = 'none';
+    }
+}
+
+function toggleCustomEnginePopup() {
+    var popup = document.getElementById('custom-engine-popup');
     if (popup.style.display === 'none' || popup.style.display === '') {
         popup.style.display = 'block';
     } else {
@@ -339,6 +352,13 @@ function applyCustomLogo() {
         logoElement.style.maxWidth = '300px';
         logoElement.style.wordWrap = 'break-word';
     }
+}
+
+function saveCustomEngine() {
+    var customEngineUrl = document.getElementById('custom-engine-url').value;
+    localStorage.setItem('customEngineUrl', customEngineUrl);
+    setEngine('custom');
+    toggleCustomEnginePopup();
 }
 
 function detectIE() {
