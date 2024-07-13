@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-bottom: 20px;">
+        <!-- Logo容器 -->
+    </div>
     <div class="search-container" id="search-container">
         <input type="text" class="search-box" id="search-query" placeholder="输入搜索内容..." onkeypress="handleKeyPress(event)">
         <button class="search-button" id="search-button" onclick="search()">
@@ -69,8 +72,7 @@
                 <h3>自定义Logo</h3>
                 <button onclick="document.getElementById('logo-upload').click()">上传Logo</button>
                 <input type="file" id="logo-upload" class="upload-input" accept="image/*" onchange="changeLogo(event)">
-                <button onclick="setLogoText()">设置Logo文本</button>
-                <input type="text" id="logo-text" placeholder="输入Logo文本">
+                <button>设置Logo文本 <input type="text" id="logo-text" placeholder="输入Logo文本"></button>
                 <button onclick="clearLogo()">清除Logo</button>
                 <button onclick="resetLogoDefaults()">还原默认</button>
             </div>
