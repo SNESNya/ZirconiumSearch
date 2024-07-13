@@ -4,6 +4,12 @@ function search() {
     var query = document.getElementById('search-query').value;
     var url;
     switch (currentEngine) {
+        case 'web-link':
+            url = query;
+            if (!url.startsWith('http')) {
+                url = 'http://' + url;
+            }
+            break;
         case 'google':
             url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
             break;
@@ -252,7 +258,7 @@ function applyCustomColors() {
 
 function detectIE() {
     var ua = window.navigator.userAgent;
-    var msie = ua.indexOf('MSIE '); // IE 10 or older
+    var msie = ua.indexOf('MSIE '); // IE 10或更早版本
     var trident = ua.indexOf('Trident/'); // IE 11
 
     if (msie > 0 || trident > 0) {
