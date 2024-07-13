@@ -256,9 +256,99 @@ function applyCustomColors() {
     }
 }
 
+function changeLogo(event) {
+    var file = event.target.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var logoUrl = e.target.result;
+            var logoElement = document.getElementById('logo');
+            if (!logoElement) {
+                logoElement = document.createElement('img');
+                logoElement.id = 'logo';
+                document.body.appendChild(logoElement);
+            }
+            logoElement.src = logoUrl;
+            logoElement.style.position = 'absolute';
+            logoElement.style.top = '10px';
+            logoElement.style.left = '10px';
+            logoElement.style.maxHeight = '100px';
+            localStorage.setItem('logoImage', logoUrl);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function setLogoText() {
+    var text = document.getElementById('logo-text').value;
+    var logoElement = document.getElementById('logo');
+    if (!logoElement) {
+        logoElement = document.createElement('div');
+        logoElement.id = 'logo';
+        document.body.appendChild(logoElement);
+    }
+    logoElement.textContent = text;
+    logoElement.style.position = 'absolute';
+    logoElement.style.top = '10px';
+    logoElement.style.left = '10px';
+    logoElement.style.fontSize = '24px';
+    logoElement.style.fontWeight = 'bold';
+    logoElement.style.color = 'inherit';
+    localStorage.setItem('logoText', text);
+}
+
+function clearLogo() {
+    var logoElement = document.getElementById('logo');
+    if (logoElement) {
+        logoElement.remove();
+    }
+    localStorage.removeItem('logoImage');
+    localStorage.removeItem('logoText');
+}
+
+function resetLogoDefaults() {
+    clearLogo();
+    var logoElement = document.getElementById('logo');
+    if (logoElement) {
+        logoElement.remove();
+    }
+}
+
+function applyCustomLogo() {
+    var logoImage = localStorage.getItem('logoImage');
+    var logoText = localStorage.getItem('logoText');
+    if (logoImage) {
+        var logoElement = document.getElementById('logo');
+        if (!logoElement) {
+            logoElement = document.createElement('img');
+            logoElement.id = 'logo';
+            document.body.appendChild(logoElement);
+        }
+        logoElement.src = logoImage;
+        logoElement.style.position = 'absolute';
+        logoElement.style.top = '10px';
+        logoElement.style.left = '10px';
+        logoElement.style.maxHeight = '100px';
+    } else if (logoText) {
+        var logoElement = document.getElementById('logo');
+        if (!logoElement) {
+            logoElement = document.createElement('div');
+            logoElement.id = 'logo';
+            document.body.appendChild(logoElement);
+        }
+        logoElement.textContent = logoText;
+        logoElement.style.position = 'absolute';
+        logoElement.style.top = '10px';
+        logoElement.style.left = '10px';
+        logoElement.style.fontSize = '24px';
+        logoElement.style.fontWeight = 'bold';
+        logoElement.style.color = 'inherit';
+    }
+}
+
 function detectIE() {
     var ua = window.navigator.userAgent;
-    var msie = ua.indexOf('MSIE '); // IE 10或更早版本
+    var msie = ua.indexOf('MSIE '); // IE 10 或更早版本
     var trident = ua.indexOf('Trident/'); // IE 11
 
     if (msie > 0 || trident > 0) {
@@ -277,4 +367,5 @@ window.onload = function() {
         setPresetTheme('light');
     }
     applyCustomColors();
+    applyCustomLogo();
 };
