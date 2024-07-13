@@ -77,6 +77,10 @@ function toggleCustomEnginePopup() {
     var popup = document.getElementById('custom-engine-popup');
     if (popup.style.display === 'none' || popup.style.display === '') {
         popup.style.display = 'block';
+        var customEngineUrl = localStorage.getItem('customEngineUrl');
+        if (customEngineUrl) {
+            document.getElementById('custom-engine-url').value = customEngineUrl;
+        }
     } else {
         popup.style.display = 'none';
     }
@@ -383,4 +387,11 @@ window.onload = function() {
     }
     applyCustomColors();
     applyCustomLogo();
+
+    // 加载自定义搜索引擎
+    var customEngineUrl = localStorage.getItem('customEngineUrl');
+    if (customEngineUrl) {
+        document.getElementById('custom-engine-url').value = customEngineUrl;
+        setEngine('custom');
+    }
 };
