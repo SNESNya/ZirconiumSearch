@@ -3,5 +3,3 @@
 可在以下链接体验:
  - https://quicksp.vercel.app
  - https://snesnya.github.io/QuickSP-Web
-
-> GitCode我操你妈的
