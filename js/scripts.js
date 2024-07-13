@@ -271,7 +271,9 @@ function changeLogo(event) {
             }
             logoElement.src = logoUrl;
             logoElement.style.maxHeight = '100px';
+            logoElement.style.maxWidth = '300px';
             localStorage.setItem('logoImage', logoUrl);
+            localStorage.removeItem('logoText'); // 清除文本Logo
         };
         reader.readAsDataURL(file);
     }
@@ -289,7 +291,11 @@ function setLogoText() {
     logoElement.style.fontSize = '24px';
     logoElement.style.fontWeight = 'bold';
     logoElement.style.color = 'inherit';
+    logoElement.style.textAlign = 'center';
+    logoElement.style.maxWidth = '300px';
+    logoElement.style.wordWrap = 'break-word';
     localStorage.setItem('logoText', text);
+    localStorage.removeItem('logoImage'); // 清除图片Logo
 }
 
 function clearLogo() {
@@ -317,6 +323,7 @@ function applyCustomLogo() {
         }
         logoElement.src = logoImage;
         logoElement.style.maxHeight = '100px';
+        logoElement.style.maxWidth = '300px';
     } else if (logoText) {
         var logoElement = document.getElementById('logo');
         if (!logoElement) {
@@ -328,6 +335,9 @@ function applyCustomLogo() {
         logoElement.style.fontSize = '24px';
         logoElement.style.fontWeight = 'bold';
         logoElement.style.color = 'inherit';
+        logoElement.style.textAlign = 'center';
+        logoElement.style.maxWidth = '300px';
+        logoElement.style.wordWrap = 'break-word';
     }
 }
 
