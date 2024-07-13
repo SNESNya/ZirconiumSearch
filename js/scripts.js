@@ -197,6 +197,7 @@ function resetAllDefaults() {
     resetDefaults();
     resetSizeDefaults();
     resetPositionDefaults();
+    resetLogoDefaults();
 }
 
 function applyCustomColors() {
@@ -266,12 +267,9 @@ function changeLogo(event) {
             if (!logoElement) {
                 logoElement = document.createElement('img');
                 logoElement.id = 'logo';
-                document.body.appendChild(logoElement);
+                document.getElementById('logo-container').appendChild(logoElement);
             }
             logoElement.src = logoUrl;
-            logoElement.style.position = 'absolute';
-            logoElement.style.top = '10px';
-            logoElement.style.left = '10px';
             logoElement.style.maxHeight = '100px';
             localStorage.setItem('logoImage', logoUrl);
         };
@@ -285,12 +283,9 @@ function setLogoText() {
     if (!logoElement) {
         logoElement = document.createElement('div');
         logoElement.id = 'logo';
-        document.body.appendChild(logoElement);
+        document.getElementById('logo-container').appendChild(logoElement);
     }
     logoElement.textContent = text;
-    logoElement.style.position = 'absolute';
-    logoElement.style.top = '10px';
-    logoElement.style.left = '10px';
     logoElement.style.fontSize = '24px';
     logoElement.style.fontWeight = 'bold';
     logoElement.style.color = 'inherit';
@@ -308,10 +303,6 @@ function clearLogo() {
 
 function resetLogoDefaults() {
     clearLogo();
-    var logoElement = document.getElementById('logo');
-    if (logoElement) {
-        logoElement.remove();
-    }
 }
 
 function applyCustomLogo() {
@@ -322,24 +313,18 @@ function applyCustomLogo() {
         if (!logoElement) {
             logoElement = document.createElement('img');
             logoElement.id = 'logo';
-            document.body.appendChild(logoElement);
+            document.getElementById('logo-container').appendChild(logoElement);
         }
         logoElement.src = logoImage;
-        logoElement.style.position = 'absolute';
-        logoElement.style.top = '10px';
-        logoElement.style.left = '10px';
         logoElement.style.maxHeight = '100px';
     } else if (logoText) {
         var logoElement = document.getElementById('logo');
         if (!logoElement) {
             logoElement = document.createElement('div');
             logoElement.id = 'logo';
-            document.body.appendChild(logoElement);
+            document.getElementById('logo-container').appendChild(logoElement);
         }
         logoElement.textContent = logoText;
-        logoElement.style.position = 'absolute';
-        logoElement.style.top = '10px';
-        logoElement.style.left = '10px';
         logoElement.style.fontSize = '24px';
         logoElement.style.fontWeight = 'bold';
         logoElement.style.color = 'inherit';
