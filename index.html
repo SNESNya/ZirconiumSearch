@@ -44,6 +44,7 @@
                 <button onclick="setEngine('duckduckgo')">DuckDuckGo <span id="duckduckgo-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('wikipedia-zh')">Wikipedia ZH <span id="wikipedia-zh-check" class="check-mark">√</span></button>
                 <button onclick="setEngine('wikipedia-en')">Wikipedia EN <span id="wikipedia-en-check" class="check-mark">√</span></button>
+                <button onclick="toggleCustomEnginePopup()">自定义搜索引擎 <span id="custom-engine-check" class="check-mark">√</span></button>
             </div>
             <div class="menu-section">
                 <h3>背景设置</h3>
@@ -93,6 +94,19 @@
                 <h3>关于</h3>
                 <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
                 <button>版本号 0.0.5</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="custom-engine-popup" style="display: none;">
+        <div class="popup-header">
+            <h2>自定义</h2>
+            <span class="close-button" onclick="toggleCustomEnginePopup()">&times;</span>
+        </div>
+        <div class="popup-content">
+            <div class="menu-section">
+                <input type="text" id="custom-engine-url" placeholder="https://example.net/%s" style="width: 100%;">
+                <button onclick="saveCustomEngine()">保存</button>
             </div>
         </div>
     </div>
