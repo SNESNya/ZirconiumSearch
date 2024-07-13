@@ -1,4 +1,4 @@
-var currentEngine = 'bing';
+var currentEngine = 'google';
 
 function search() {
     var query = document.getElementById('search-query').value;
