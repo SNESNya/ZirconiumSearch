@@ -25,6 +25,9 @@ function search() {
         case 'wikipedia-en':
             url = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query);
             break;
+        case 'starquest':
+            url = 'https://yhd.co/search.php?q=' + encodeURIComponent(query);
+            break;
         case 'custom':
             var customUrl = localStorage.getItem('customEngineUrl');
             url = customUrl.replace('%s', encodeURIComponent(query));
