@@ -89,6 +89,19 @@ function toggleCustomEnginePopup() {
     }
 }
 
+function toggleDescriptionPopup() {
+    var popup = document.getElementById('description-popup');
+    if (popup.style.display === 'none' || popup.style.display === '') {
+        popup.style.display = 'block';
+        var descriptionText = localStorage.getItem('descriptionText');
+        if (descriptionText) {
+            document.getElementById('description-text').value = descriptionText;
+        }
+    } else {
+        popup.style.display = 'none';
+    }
+}
+
 function setEngine(engine) {
     currentEngine = engine;
     localStorage.setItem('currentEngine', engine); // 保存当前引擎到localStorage
@@ -212,6 +225,7 @@ function resetPositionDefaults() {
 
     document.getElementById('search-container').style.left = '0px';
     document.getElementById('search-container').style.top = '0px';
+    applyCustomPosition(); // 更新Logo和描述文本的位置
 }
 
 function resetAllDefaults() {
@@ -219,6 +233,7 @@ function resetAllDefaults() {
     resetSizeDefaults();
     resetPositionDefaults();
     resetLogoDefaults();
+    resetDescriptionDefaults();
 }
 
 function applyCustomColors() {
@@ -276,6 +291,7 @@ function applyCustomColors() {
     if (positionY) {
         document.getElementById('search-container').style.top = positionY;
     }
+    applyCustomPosition(); // 更新Logo和描述文本的位置
 }
 
 function changeLogo(event) {
@@ -362,6 +378,54 @@ function applyCustomLogo() {
     }
 }
 
+function saveDescriptionText() {
+    var text = document.getElementById('description-text').value;
+    var descriptionElement = document.getElementById('description');
+    if (!descriptionElement) {
+        descriptionElement = document.createElement('div');
+        descriptionElement.id = 'description';
+        document.getElementById('description-container').appendChild(descriptionElement);
+    }
+    descriptionElement.textContent = text;
+    descriptionElement.style.fontSize = '16px';
+    descriptionElement.style.color = 'inherit';
+    descriptionElement.style.textAlign = 'center';
+    descriptionElement.style.maxWidth = '300px';
+    descriptionElement.style.wordWrap = 'break-word';
+    localStorage.setItem('descriptionText', text);
+    toggleDescriptionPopup();
+}
+
+function clearDescription() {
+    var descriptionElement = document.getElementById('description');
+    if (descriptionElement) {
+        descriptionElement.remove();
+    }
+    localStorage.removeItem('descriptionText');
+}
+
+function resetDescriptionDefaults() {
+    clearDescription();
+}
+
+function applyCustomDescription() {
+    var descriptionText = localStorage.getItem('descriptionText');
+    if (descriptionText) {
+        var descriptionElement = document.getElementById('description');
+        if (!descriptionElement) {
+            descriptionElement = document.createElement('div');
+            descriptionElement.id = 'description';
+            document.getElementById('description-container').appendChild(descriptionElement);
+        }
+        descriptionElement.textContent = descriptionText;
+        descriptionElement.style.fontSize = '16px';
+        descriptionElement.style.color = 'inherit';
+        descriptionElement.style.textAlign = 'center';
+        descriptionElement.style.maxWidth = '300px';
+        descriptionElement.style.wordWrap = 'break-word';
+    }
+}
+
 function saveCustomEngine() {
     var customEngineUrl = document.getElementById('custom-engine-url').value;
     localStorage.setItem('customEngineUrl', customEngineUrl);
@@ -380,6 +444,19 @@ function detectIE() {
     }
 }
 
+function applyCustomPosition() {
+    var positionX = localStorage.getItem('search-container-left');
+    var positionY = localStorage.getItem('search-container-top');
+    if (positionX) {
+        document.getElementById('logo-container').style.left = positionX;
+        document.getElementById('description-container').style.left = positionX;
+    }
+    if (positionY) {
+        document.getElementById('logo-container').style.top = positionY;
+        document.getElementById('description-container').style.top = positionY;
+    }
+}
+
 window.onload = function() {
     loadBackground();
     detectIE();
@@ -391,6 +468,7 @@ window.onload = function() {
     }
     applyCustomColors();
     applyCustomLogo();
+    applyCustomDescription();
 
     // 加载自定义搜索引擎
     var customEngineUrl = localStorage.getItem('customEngineUrl');
