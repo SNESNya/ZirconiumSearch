@@ -91,6 +91,7 @@ function toggleCustomEnginePopup() {
 
 function setEngine(engine) {
     currentEngine = engine;
+    localStorage.setItem('currentEngine', engine); // 保存当前引擎到localStorage
     document.querySelectorAll('.check-mark').forEach(function(check) {
         check.style.display = 'none';
     });
@@ -395,6 +396,13 @@ window.onload = function() {
     var customEngineUrl = localStorage.getItem('customEngineUrl');
     if (customEngineUrl) {
         document.getElementById('custom-engine-url').value = customEngineUrl;
-        setEngine('custom');
+    }
+
+    // 加载当前搜索引擎
+    var savedEngine = localStorage.getItem('currentEngine');
+    if (savedEngine) {
+        setEngine(savedEngine);
+    } else {
+        setEngine('google'); // 默认引擎
     }
 };
