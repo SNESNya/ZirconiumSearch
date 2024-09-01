@@ -241,3 +241,16 @@ body.oled-theme {
     border-radius: 5px;
     font-size: 14px;
 }
+
+/* 调试模式卡片样式 */
+.debug-card {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: var(--dynamic-color-surface);
+    color: var(--dynamic-color-on-surface);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
