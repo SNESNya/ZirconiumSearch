@@ -1,3 +1,15 @@
+:root {
+    --dynamic-color-primary: #6200EE;
+    --dynamic-color-secondary: #03DAC6;
+    --dynamic-color-background: #F5F5F5;
+    --dynamic-color-surface: #FFFFFF;
+    --dynamic-color-on-primary: #FFFFFF;
+    --dynamic-color-on-secondary: #000000;
+    --dynamic-color-on-background: #000000;
+    --dynamic-color-on-surface: #000000;
+    --dynamic-color-danger: #FF0000;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -5,67 +17,149 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Google Sans', sans-serif;
+    background-color: var(--dynamic-color-background);
+    color: var(--dynamic-color-on-background);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     transition: background-image 0.5s ease, background-color 0.5s ease;
-    color: #000;
 }
 
-body.light-mode {
-    background-color: #f5f5f5;
-    color: #000;
+body.light-theme {
+    --dynamic-color-background: #F5F5F5;
+    --dynamic-color-on-background: #000000;
+    --dynamic-color-surface: #FFFFFF;
+    --dynamic-color-on-surface: #000000;
+    --dynamic-color-on-primary: #FFFFFF;
+    --dynamic-color-on-secondary: #000000;
 }
 
-body.light-mode .search-button,
-body.light-mode .engine-button {
-    background-color: #000;
-    color: #fff;
+body.dark-theme {
+    --dynamic-color-background: #333333;
+    --dynamic-color-on-background: #FFFFFF;
+    --dynamic-color-surface: #444444;
+    --dynamic-color-on-surface: #FFFFFF;
+    --dynamic-color-on-primary: #FFFFFF;
+    --dynamic-color-on-secondary: #FFFFFF;
 }
 
-body.dark-mode {
-    background-color: #333;
-    color: #fff;
+body.oled-theme {
+    --dynamic-color-background: #000000;
+    --dynamic-color-on-background: #FFFFFF;
+    --dynamic-color-surface: #111111;
+    --dynamic-color-on-surface: #FFFFFF;
+    --dynamic-color-on-primary: #FFFFFF;
+    --dynamic-color-on-secondary: #FFFFFF;
 }
 
-body.dark-mode .search-container {
-    background-color: #444;
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-body.dark-mode .search-button {
-    background-color: #555;
+.modal-content {
+    background-color: var(--dynamic-color-surface);
+    padding: 20px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 450px; /* 增加设置模态窗口的宽度 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-mode .engine-button {
-    background-color: #555;
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-body.material-you .search-button {
-    background-color: #0061a4;
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--dynamic-color-on-primary);
 }
 
-body.material-you .engine-button {
-    background-color: #0061a4;
+.modal-body {
+    padding-top: 10px;
+    max-height: 60vh; /* 高度调整 */
+    overflow-y: auto; /* 启用内部滚动条 */
 }
 
-body.material-design .search-button {
-    background-color: #00696e;
+.menu-section {
+    margin-bottom: 20px;
 }
 
-body.material-design .engine-button {
-    background-color: #00696e;
+.menu-section h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.menu-section button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--dynamic-color-secondary);
+    color: var(--dynamic-color-on-secondary);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-section button.active {
+    background-color: var(--dynamic-color-primary);
+    color: var(--dynamic-color-on-primary);
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--dynamic-color-on-surface);
+}
+
+.input-group input.text-field {
+    width: calc(100% - 20px); /* 调整输入框的宽度 */
+    padding: 10px;
+    border: 1px solid var(--dynamic-color-secondary);
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+.close-button {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--dynamic-color-danger);
+}
+
+.upload-input {
+    display: none;
 }
 
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--dynamic-color-surface);
     border-radius: 28px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    width: 300px;
+    width: 300px; /* 将默认搜索框长度设置为300px */
     position: relative;
     left: 0px;
     top: 0px;
@@ -81,35 +175,36 @@ body.material-design .engine-button {
     color: inherit;
 }
 
-body.dark-mode .search-box::placeholder {
-    color: #ccc;
-}
-
 .search-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--dynamic-color-secondary);
+    color: var(--dynamic-color-on-secondary);
     border: none;
     border-radius: 50%;
     width: 40px;
     height: 40px;
     cursor: pointer;
     font-size: 24px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-button span {
+    color: var(--dynamic-color-on-secondary);
 }
 
 .search-button:hover {
-    background-color: #45a049;
+    background-color: var(--dynamic-color-primary);
+    color: var(--dynamic-color-on-primary);
 }
 
 .engine-button {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background-color: #FF9800;
-    color: white;
+    background-color: var(--dynamic-color-secondary);
+    color: var(--dynamic-color-on-secondary);
     border: none;
     border-radius: 50%;
     width: 50px;
@@ -119,132 +214,24 @@ body.dark-mode .search-box::placeholder {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.engine-button span {
+    color: var(--dynamic-color-on-secondary);
 }
 
 .engine-button:hover {
-    background-color: #e68900;
-}
-
-body.dark-mode .engine-button {
-    background-color: #555;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px; /* 减小窗口宽度 */
-    max-height: 300px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    z-index: 1000;
-    overflow: hidden;
-}
-
-body.dark-mode .popup {
-    background-color: #444;
-    color: #fff;
-}
-
-.popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-bottom: 1px solid #ddd;
-}
-
-body.dark-mode .popup-header {
-    background-color: #555;
-    border-bottom: 1px solid #666;
-}
-
-.popup-header h2 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.popup-content {
-    padding: 20px;
-    overflow-y: auto;
-    height: calc(100% - 50px); /* 50px 是 header 的高度 */
-    max-height: 250px; /* 确保内容区域可以滚动 */
-}
-
-.close-button {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.menu-section {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.menu-section:last-child {
-    border-bottom: none;
-}
-
-.menu-section h3 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-}
-
-.popup p {
-    margin: 0;
-    font-size: 14px;
-    text-align: center;
-    color: inherit;
-}
-
-.popup button {
-    background: none;
-    border: none;
-    padding: 10px 0;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    color: inherit;
-}
-
-.popup button:hover {
-    background-color: #f5f5f5;
-}
-
-body.dark-mode .popup button:hover {
-    background-color: #666;
-}
-
-.popup input[type="text"] {
-    width: 70px;
-    margin-left: 10px;
-}
-
-.upload-input {
-    display: none;
-}
-
-.check-mark {
-    display: none;
-    color: green;
+    background-color: var(--dynamic-color-primary);
+    color: var(--dynamic-color-on-primary);
 }
 
 .ie-warning {
     display: none;
     color: white;
-    background-color: red;
+    background-color: var(--dynamic-color-danger);
     padding: 10px;
     margin-top: 20px;
     border-radius: 5px;
     font-size: 14px;
-}
-
-.center-button {
-    text-align: center;
 }

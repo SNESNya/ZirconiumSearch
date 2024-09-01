@@ -26,109 +26,159 @@
         当前浏览器版本过低，可能会导致错误。
     </div>
 
-    <button class="engine-button" id="settings-button" onclick="togglePopup()">
+    <button class="engine-button" id="settings-button" onclick="togglePopup('settings-modal')">
         <span class="material-icons">settings</span>
     </button>
-    
-    <div class="popup" id="settings-popup">
-        <div class="popup-header">
-            <h2>设置</h2>
-            <span class="close-button" onclick="togglePopup()">&times;</span>
-        </div>
-        <div class="popup-content">
-            <div class="menu-section">
-                <p>QuickSP-0.0.7_Beta3</p>
-                <p>可向下滑动</p>
-                <button class="center-button" onclick="resetAllDefaults()">还原全部设置为默认</button>
-                <h3>更换搜索引擎</h3>
-                <button onclick="setEngine('web-link')">网页链接 <span id="web-link-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('google')">Google <span id="google-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('bing')">Bing <span id="bing-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('duckduckgo')">DuckDuckGo <span id="duckduckgo-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('wikipedia-zh')">Wikipedia ZH <span id="wikipedia-zh-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('wikipedia-en')">Wikipedia EN <span id="wikipedia-en-check" class="check-mark">√</span></button>
-                <button onclick="setEngine('starquest')">StarQuest <span id="starquest-check" class="check-mark">√</span></button>
-                <button onclick="toggleCustomEnginePopup()">自定义搜索引擎 <span id="custom-engine-check" class="check-mark">√</span></button>
+
+    <!-- Modal for Settings -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置</h2>
+                <span class="close-button" onclick="togglePopup('settings-modal')">&times;</span>
             </div>
-            <div class="menu-section">
-                <h3>背景设置</h3>
-                <button onclick="document.getElementById('background-upload').click()">上传背景图</button>
-                <button onclick="clearBackground()">清除背景图</button>
-            </div>
-            <div class="menu-section">
-                <h3>预置主题</h3>
-                <button onclick="setPresetTheme('light')">浅色模式</button>
-                <button onclick="setPresetTheme('light-old')">浅色模式(旧)</button>
-                <button onclick="setPresetTheme('dark')">深色主题</button>
-                <button onclick="setPresetTheme('material-you')">Material You</button>
-                <button onclick="setPresetTheme('material-design')">Material Design</button>
-            </div>
-            <div class="menu-section">
-                <h3>自定义主题</h3>
-                <button>搜索框颜色 <input type="text" id="search-box-color" placeholder="#ffffff" oninput="changeColor('search-container', 'backgroundColor')"></button>
-                <button>搜索框预文本颜色 <input type="text" id="search-placeholder-color" placeholder="#ccc" oninput="changePlaceholderColor()"></button>
-                <button>搜索框预文本 <input type="text" id="search-placeholder-text" placeholder="输入搜索内容..." oninput="changePlaceholderText()"></button>
-                <button>搜索文字颜色 <input type="text" id="search-text-color" placeholder="#000000" oninput="changeColor('search-query', 'color')"></button>
-                <button>搜索按钮颜色 <input type="text" id="search-button-color" placeholder="#4CAF50" oninput="changeColor('search-button', 'backgroundColor')"></button>
-                <button>设置按钮颜色 <input type="text" id="settings-button-color" placeholder="#FF9800" oninput="changeColor('settings-button', 'backgroundColor')"></button>
-                <button onclick="resetDefaults()">还原默认</button>
-            </div>
-            <div class="menu-section">
-                <h3>自定义Logo</h3>
-                <button onclick="document.getElementById('logo-upload').click()">上传Logo</button>
-                <input type="file" id="logo-upload" class="upload-input" accept="image/*" onchange="changeLogo(event)">
-                <button>设置Logo文本 <input type="text" id="logo-text" placeholder="输入Logo文本" oninput="setLogoText()"></button>
-                <button onclick="clearLogo()">清除Logo</button>
-            </div>
-            <div class="menu-section">
-                <h3>自定义描述文本</h3>
-                <button onclick="toggleDescriptionPopup()">设置描述文本</button>
-                <button onclick="clearDescription()">清除描述文本</button>
-            </div>
-            <div class="menu-section">
-                <h3>自定义大小</h3>
-                <button>搜索框长度 <input type="text" id="search-width" placeholder="300px" oninput="changeSize('search-container', 'width')"></button>
-                <button>搜索框宽度 <input type="text" id="search-height" placeholder="40px" oninput="changeSize('search-container', 'height')"></button>
-                <button>阴影强度 <input type="text" id="shadow-strength" placeholder="0.1" oninput="changeShadowStrength()"></button>
-                <button>阴影大小 <input type="text" id="shadow-size" placeholder="6px" oninput="changeShadowSize()"></button>
-                <button onclick="resetSizeDefaults()">还原默认</button>
-            </div>
-            <div class="menu-section">
-                <h3>自定义位置</h3>
-                <button>X轴 <input type="text" id="search-position-x" placeholder="0px" oninput="changePosition('search-container', 'left')"></button>
-                <button>Y轴 <input type="text" id="search-position-y" placeholder="0px" oninput="changePosition('search-container', 'top')"></button>
-                <button onclick="resetPositionDefaults()">还原默认</button>
-            </div>
-            <div class="menu-section">
-                <h3>关于</h3>
-                <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
-                <button>版本号 0.0.7_Beta3</button>
+            <div class="modal-body">
+                <div class="menu-section">
+                    <h3>更换搜索引擎</h3>
+                    <button onclick="setEngine('web-link')" id="web-link-btn">网页链接</button>
+                    <button onclick="setEngine('google')" id="google-btn">Google</button>
+                    <button onclick="setEngine('bing')" id="bing-btn">Bing</button>
+                    <button onclick="setEngine('duckduckgo')" id="duckduckgo-btn">DuckDuckGo</button>
+                    <button onclick="setEngine('wikipedia-zh')" id="wikipedia-zh-btn">Wikipedia ZH</button>
+                    <button onclick="setEngine('wikipedia-en')" id="wikipedia-en-btn">Wikipedia EN</button>
+                    <button onclick="setEngine('starquest')" id="starquest-btn">StarQuest</button>
+                    <button onclick="togglePopup('custom-engine-modal')">自定义搜索引擎</button>
+                </div>
+                <div class="menu-section">
+                    <h3>背景设置</h3>
+                    <button onclick="document.getElementById('background-upload').click()">上传背景图</button>
+                    <button onclick="clearBackground()">清除背景图</button>
+                </div>
+                <div class="menu-section">
+                    <h3>主题设置</h3>
+                    <button onclick="setTheme('light')" id="light-theme-btn">浅色模式</button>
+                    <button onclick="setTheme('dark')" id="dark-theme-btn">深色模式</button>
+                    <button onclick="setTheme('oled')" id="oled-theme-btn">OLED模式</button>
+                </div>
+                <div class="menu-section">
+                    <h3>自定义主题</h3>
+                    <div class="input-group">
+                        <label>搜索框颜色</label>
+                        <input type="text" id="search-box-color" class="text-field" placeholder="#ffffff" oninput="changeColor('search-container', 'backgroundColor')">
+                    </div>
+                    <div class="input-group">
+                        <label>搜索框预文本颜色</label>
+                        <input type="text" id="search-placeholder-color" class="text-field" placeholder="#ccc" oninput="changePlaceholderColor()">
+                    </div>
+                    <div class="input-group">
+                        <label>搜索框预文本</label>
+                        <input type="text" id="search-placeholder-text" class="text-field" placeholder="输入搜索内容..." oninput="changePlaceholderText()">
+                    </div>
+                    <div class="input-group">
+                        <label>搜索文字颜色</label>
+                        <input type="text" id="search-text-color" class="text-field" placeholder="#000000" oninput="changeColor('search-query', 'color')">
+                    </div>
+                    <div class="input-group">
+                        <label>搜索按钮颜色</label>
+                        <input type="text" id="search-button-color" class="text-field" placeholder="#4CAF50" oninput="changeColor('search-button', 'backgroundColor')">
+                    </div>
+                    <div class="input-group">
+                        <label>设置按钮颜色</label>
+                        <input type="text" id="settings-button-color" class="text-field" placeholder="#FF9800" oninput="changeColor('settings-button', 'backgroundColor')">
+                    </div>
+                    <div class="input-group">
+                        <label>图标颜色</label>
+                        <select id="icon-color-select" onchange="changeIconColor()">
+                            <option value="black">黑色</option>
+                            <option value="white">白色</option>
+                        </select>
+                    </div>
+                    <button onclick="resetDefaults()">还原默认</button>
+                </div>
+                <div class="menu-section">
+                    <h3>自定义Logo</h3>
+                    <button onclick="document.getElementById('logo-upload').click()">上传Logo</button>
+                    <input type="file" id="logo-upload" class="upload-input" accept="image/*" onchange="changeLogo(event)">
+                    <div class="input-group">
+                        <label>设置Logo文本</label>
+                        <input type="text" id="logo-text" class="text-field" placeholder="输入Logo文本" oninput="setLogoText()">
+                    </div>
+                    <button onclick="clearLogo()">清除Logo</button>
+                </div>
+                <div class="menu-section">
+                    <h3>自定义描述文本</h3>
+                    <button onclick="togglePopup('description-modal')">设置描述文本</button>
+                    <button onclick="clearDescription()">清除描述文本</button>
+                </div>
+                <div class="menu-section">
+                    <h3>自定义大小</h3>
+                    <div class="input-group">
+                        <label>搜索框长度</label>
+                        <input type="text" id="search-width" class="text-field" placeholder="300px" oninput="changeSize('search-container', 'width')">
+                    </div>
+                    <div class="input-group">
+                        <label>搜索框高度</label>
+                        <input type="text" id="search-height" class="text-field" placeholder="40px" oninput="changeSize('search-container', 'height')">
+                    </div>
+                    <div class="input-group">
+                        <label>阴影强度</label>
+                        <input type="text" id="shadow-strength" class="text-field" placeholder="0.1" oninput="changeShadowStrength()">
+                    </div>
+                    <div class="input-group">
+                        <label>阴影大小</label>
+                        <input type="text" id="shadow-size" class="text-field" placeholder="6px" oninput="changeShadowSize()">
+                    </div>
+                    <button onclick="resetSizeDefaults()">还原默认</button>
+                </div>
+                <div class="menu-section">
+                    <h3>自定义位置</h3>
+                    <div class="input-group">
+                        <label>X轴</label>
+                        <input type="text" id="search-position-x" class="text-field" placeholder="0px" oninput="changePosition('search-container', 'left')">
+                    </div>
+                    <div class="input-group">
+                        <label>Y轴</label>
+                        <input type="text" id="search-position-y" class="text-field" placeholder="0px" oninput="changePosition('search-container', 'top')">
+                    </div>
+                    <button onclick="resetPositionDefaults()">还原默认</button>
+                </div>
+                <div class="menu-section">
+                    <h3>关于</h3>
+                    <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
+                    <button>版本号 0.0.7_Beta3</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="popup" id="description-popup" style="display: none;">
-        <div class="popup-header">
-            <h2>设置描述文本</h2>
-            <span class="close-button" onclick="toggleDescriptionPopup()">&times;</span>
-        </div>
-        <div class="popup-content">
-            <div class="menu-section">
-                <textarea id="description-text" placeholder="输入描述文本..." style="width: calc(100% - 24px); height: 100px;"></textarea>
-                <button style="width: 100%;" onclick="saveDescriptionText()">保存</button>
+    <!-- Modal for Description -->
+    <div class="modal" id="description-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置描述文本</h2>
+                <span class="close-button" onclick="togglePopup('description-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="menu-section">
+                    <textarea id="description-text" class="text-field" placeholder="输入描述文本..." style="width: calc(100% - 24px); height: 100px;"></textarea>
+                    <button style="width: 100%;" onclick="saveDescriptionText()">保存</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="popup" id="custom-engine-popup" style="display: none;">
-        <div class="popup-header">
-            <h2>自定义</h2>
-            <span class="close-button" onclick="toggleCustomEnginePopup()">&times;</span>
-        </div>
-        <div class="popup-content">
-            <div class="menu-section">
-                <input type="text" id="custom-engine-url" placeholder="https://example.net/%s" style="width: calc(100% - 24px); margin-bottom: 10px;">
-                <button style="width: 100%;" onclick="saveCustomEngine()">保存</button>
+    <!-- Modal for Custom Engine -->
+    <div class="modal" id="custom-engine-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>自定义</h2>
+                <span class="close-button" onclick="togglePopup('custom-engine-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="menu-section">
+                    <input type="text" id="custom-engine-url" class="text-field" placeholder="https://example.net/%s" style="width: calc(100% - 24px); margin-bottom: 10px;">
+                    <button style="width: 100%;" onclick="saveCustomEngine()">保存</button>
+                </div>
             </div>
         </div>
     </div>

@@ -67,36 +67,10 @@ function loadBackground() {
     }
 }
 
-function togglePopup() {
-    var popup = document.getElementById('settings-popup');
+function togglePopup(modalId) {
+    var popup = document.getElementById(modalId);
     if (popup.style.display === 'none' || popup.style.display === '') {
-        popup.style.display = 'block';
-    } else {
-        popup.style.display = 'none';
-    }
-}
-
-function toggleCustomEnginePopup() {
-    var popup = document.getElementById('custom-engine-popup');
-    if (popup.style.display === 'none' || popup.style.display === '') {
-        popup.style.display = 'block';
-        var customEngineUrl = localStorage.getItem('customEngineUrl');
-        if (customEngineUrl) {
-            document.getElementById('custom-engine-url').value = customEngineUrl;
-        }
-    } else {
-        popup.style.display = 'none';
-    }
-}
-
-function toggleDescriptionPopup() {
-    var popup = document.getElementById('description-popup');
-    if (popup.style.display === 'none' || popup.style.display === '') {
-        popup.style.display = 'block';
-        var descriptionText = localStorage.getItem('descriptionText');
-        if (descriptionText) {
-            document.getElementById('description-text').value = descriptionText;
-        }
+        popup.style.display = 'flex';
     } else {
         popup.style.display = 'none';
     }
@@ -104,49 +78,24 @@ function toggleDescriptionPopup() {
 
 function setEngine(engine) {
     currentEngine = engine;
-    localStorage.setItem('currentEngine', engine); // 保存当前引擎到localStorage
-    document.querySelectorAll('.check-mark').forEach(function(check) {
-        check.style.display = 'none';
+    localStorage.setItem('currentEngine', engine);
+    document.querySelectorAll('.menu-section button').forEach(function(button) {
+        button.classList.remove('active');
     });
-    document.getElementById(engine + '-check').style.display = 'inline';
+    document.getElementById(engine + '-btn').classList.add('active');
 }
 
-function setPresetTheme(theme) {
-    document.body.classList.remove('dark-mode', 'material-you', 'material-design', 'light-mode-old', 'light-mode');
-    var settingsButton = document.getElementById('settings-button');
-    var searchButton = document.getElementById('search-button');
-    switch (theme) {
-        case 'light':
-            document.body.classList.add('light-mode');
-            settingsButton.style.backgroundColor = '#000';
-            searchButton.style.backgroundColor = '#000';
-            localStorage.setItem('theme', 'light');
-            break;
-        case 'light-old':
-            document.body.classList.add('light-mode-old');
-            settingsButton.style.backgroundColor = '#FF9800';
-            searchButton.style.backgroundColor = '#4CAF50';
-            localStorage.setItem('theme', 'light-old');
-            break;
-        case 'dark':
-            document.body.classList.add('dark-mode');
-            settingsButton.style.backgroundColor = '#555';
-            searchButton.style.backgroundColor = '#555';
-            localStorage.setItem('theme', 'dark');
-            break;
-        case 'material-you':
-            document.body.classList.add('material-you');
-            settingsButton.style.backgroundColor = '#0061a4';
-            searchButton.style.backgroundColor = '#0061a4';
-            localStorage.setItem('theme', 'material-you');
-            break;
-        case 'material-design':
-            document.body.classList.add('material-design');
-            settingsButton.style.backgroundColor = '#00696e';
-            searchButton.style.backgroundColor = '#00696e';
-            localStorage.setItem('theme', 'material-design');
-            break;
-    }
+function setTheme(theme) {
+    document.body.classList.remove('light-theme', 'dark-theme', 'oled-theme');
+    document.body.classList.add(theme + '-theme');
+    localStorage.setItem('theme', theme);
+    document.querySelectorAll('.menu-section button').forEach(function(button) {
+        button.classList.remove('active');
+    });
+    document.getElementById(theme + '-theme-btn').classList.add('active');
+
+    // 重新应用图标颜色
+    applyIconColor();
 }
 
 function changeColor(elementId, styleProperty) {
@@ -206,6 +155,7 @@ function resetDefaults() {
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
     document.getElementById('search-query').placeholder = '输入搜索内容...';
     document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
+    applyIconColor(); // 重置图标颜色
 }
 
 function resetSizeDefaults() {
@@ -214,7 +164,7 @@ function resetSizeDefaults() {
     localStorage.removeItem('search-container-shadow-strength');
     localStorage.removeItem('search-container-shadow-size');
 
-    document.getElementById('search-container').style.width = '300px';
+    document.getElementById('search-container').style.width = '300px'; // 修改为300px
     document.getElementById('search-container').style.height = '40px';
     document.getElementById('search-container').style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
 }
@@ -225,7 +175,7 @@ function resetPositionDefaults() {
 
     document.getElementById('search-container').style.left = '0px';
     document.getElementById('search-container').style.top = '0px';
-    applyCustomPosition(); // 更新Logo和描述文本的位置
+    applyCustomPosition();
 }
 
 function resetAllDefaults() {
@@ -291,7 +241,7 @@ function applyCustomColors() {
     if (positionY) {
         document.getElementById('search-container').style.top = positionY;
     }
-    applyCustomPosition(); // 更新Logo和描述文本的位置
+    applyCustomPosition();
 }
 
 function changeLogo(event) {
@@ -310,7 +260,7 @@ function changeLogo(event) {
             logoElement.style.maxHeight = '100px';
             logoElement.style.maxWidth = '300px';
             localStorage.setItem('logoImage', logoUrl);
-            localStorage.removeItem('logoText'); // 清除文本Logo
+            localStorage.removeItem('logoText');
         };
         reader.readAsDataURL(file);
     }
@@ -332,7 +282,7 @@ function setLogoText() {
     logoElement.style.maxWidth = '300px';
     logoElement.style.wordWrap = 'break-word';
     localStorage.setItem('logoText', text);
-    localStorage.removeItem('logoImage'); // 清除图片Logo
+    localStorage.removeItem('logoImage');
 }
 
 function clearLogo() {
@@ -393,7 +343,7 @@ function saveDescriptionText() {
     descriptionElement.style.maxWidth = '300px';
     descriptionElement.style.wordWrap = 'break-word';
     localStorage.setItem('descriptionText', text);
-    toggleDescriptionPopup();
+    togglePopup('description-modal');
 }
 
 function clearDescription() {
@@ -430,7 +380,7 @@ function saveCustomEngine() {
     var customEngineUrl = document.getElementById('custom-engine-url').value;
     localStorage.setItem('customEngineUrl', customEngineUrl);
     setEngine('custom');
-    toggleCustomEnginePopup();
+    togglePopup('custom-engine-modal');
 }
 
 function detectIE() {
@@ -457,30 +407,46 @@ function applyCustomPosition() {
     }
 }
 
+function changeIconColor() {
+    var iconColor = document.getElementById('icon-color-select').value;
+    var iconColorValue = iconColor === 'black' ? '#000000' : '#FFFFFF';
+    document.documentElement.style.setProperty('--dynamic-color-on-secondary', iconColorValue);
+    localStorage.setItem('icon-color', iconColor);
+}
+
+function applyIconColor() {
+    var savedIconColor = localStorage.getItem('icon-color');
+    if (savedIconColor) {
+        var iconColorValue = savedIconColor === 'black' ? '#000000' : '#FFFFFF';
+        document.documentElement.style.setProperty('--dynamic-color-on-secondary', iconColorValue);
+        document.getElementById('icon-color-select').value = savedIconColor;
+    }
+}
+
 window.onload = function() {
     loadBackground();
     detectIE();
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-        setPresetTheme(savedTheme);
+        setTheme(savedTheme);
     } else {
-        setPresetTheme('light');
+        setTheme('light');
     }
     applyCustomColors();
     applyCustomLogo();
     applyCustomDescription();
 
-    // 加载自定义搜索引擎
     var customEngineUrl = localStorage.getItem('customEngineUrl');
     if (customEngineUrl) {
         document.getElementById('custom-engine-url').value = customEngineUrl;
     }
 
-    // 加载当前搜索引擎
     var savedEngine = localStorage.getItem('currentEngine');
     if (savedEngine) {
         setEngine(savedEngine);
     } else {
-        setEngine('google'); // 默认引擎
+        setEngine('google');
     }
+
+    applyIconColor();
 };
