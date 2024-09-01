@@ -70,9 +70,10 @@ body.oled-theme {
     background-color: var(--dynamic-color-surface);
     padding: 20px;
     border-radius: 16px;
-    width: 90%;
-    max-width: 450px; /* 增加设置模态窗口的宽度 */
+    width: 400px; /* 固定模态窗口的宽度为400px */
+    box-sizing: border-box; /* 确保内边距和边框不会增加宽度 */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden; /* 隐藏水平滚动条 */
 }
 
 .modal-header {
@@ -92,7 +93,8 @@ body.oled-theme {
 .modal-body {
     padding-top: 10px;
     max-height: 60vh; /* 高度调整 */
-    overflow-y: auto; /* 启用内部滚动条 */
+    overflow-y: auto; /* 启用内部垂直滚动条 */
+    overflow-x: hidden; /* 隐藏水平滚动条 */
 }
 
 .menu-section {
@@ -105,7 +107,7 @@ body.oled-theme {
 }
 
 .menu-section button {
-    width: 100%;
+    width: calc(100% - 20px); /* 与输入框保持一致宽度 */
     padding: 10px;
     margin-bottom: 10px;
     background-color: var(--dynamic-color-secondary);
@@ -115,6 +117,7 @@ body.oled-theme {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box; /* 包括边框和内边距在内的宽度计算 */
 }
 
 .menu-section button.active {
@@ -134,12 +137,13 @@ body.oled-theme {
 }
 
 .input-group input.text-field {
-    width: calc(100% - 20px); /* 调整输入框的宽度 */
+    width: calc(100% - 20px); /* 与按钮保持一致宽度 */
     padding: 10px;
     border: 1px solid var(--dynamic-color-secondary);
     border-radius: 8px;
     font-size: 16px;
     outline: none;
+    box-sizing: border-box; /* 包括边框和内边距在内的宽度计算 */
 }
 
 .close-button {
@@ -163,6 +167,7 @@ body.oled-theme {
     position: relative;
     left: 0px;
     top: 0px;
+    box-sizing: border-box; /* 确保内边距和边框不会增加宽度 */
 }
 
 .search-box {
@@ -173,6 +178,7 @@ body.oled-theme {
     margin-right: 10px;
     background-color: inherit;
     color: inherit;
+    box-sizing: border-box; /* 确保宽度计算正确 */
 }
 
 .search-button {
