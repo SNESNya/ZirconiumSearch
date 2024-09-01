@@ -1,4 +1,6 @@
 var currentEngine = 'google';
+var debugMode = false;
+var debugCard;
 
 function search() {
     var query = document.getElementById('search-query').value;
@@ -421,6 +423,54 @@ function applyIconColor() {
         document.documentElement.style.setProperty('--dynamic-color-on-secondary', iconColorValue);
         document.getElementById('icon-color-select').value = savedIconColor;
     }
+}
+
+function toggleDebugMode() {
+    debugMode = !debugMode;
+    if (debugMode) {
+        createDebugCard();
+        requestAnimationFrame(updateDebugInfo);
+    } else {
+        removeDebugCard();
+    }
+}
+
+function createDebugCard() {
+    debugCard = document.createElement('div');
+    debugCard.className = 'debug-card';
+    debugCard.innerHTML = `
+        <div>FPS: <span id="fps">0</span></div>
+        <div>版本号: 0.1.1</div>
+    `;
+    document.body.appendChild(debugCard);
+}
+
+function removeDebugCard() {
+    if (debugCard) {
+        debugCard.remove();
+        debugCard = null;
+    }
+}
+
+function updateDebugInfo() {
+    if (!debugMode) return;
+
+    const fpsElement = document.getElementById('fps');
+    let lastFrameTime = performance.now();
+    let frameCount = 0;
+
+    function calculateFPS(now) {
+        frameCount++;
+        const delta = now - lastFrameTime;
+        if (delta >= 1000) {
+            fpsElement.textContent = frameCount;
+            frameCount = 0;
+            lastFrameTime = now;
+        }
+        requestAnimationFrame(calculateFPS);
+    }
+
+    calculateFPS(lastFrameTime);
 }
 
 window.onload = function() {
