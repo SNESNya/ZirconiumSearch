@@ -51,7 +51,6 @@ function search() {
     }
 }
 
-
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         search();
@@ -198,8 +197,6 @@ function resetAllDefaults() {
     resetDefaults();
     resetSizeDefaults();
     resetPositionDefaults();
-    resetLogoDefaults();
-    resetDescriptionDefaults();
 }
 
 function applyCustomColors() {
@@ -252,12 +249,13 @@ function applyCustomColors() {
     var positionX = localStorage.getItem('search-container-left');
     var positionY = localStorage.getItem('search-container-top');
     if (positionX) {
-        document.getElementById('search-container').style.left = positionX;
+        document.getElementById('logo-container').style.left = positionX;
+        document.getElementById('description-container').style.left = positionX;
     }
     if (positionY) {
-        document.getElementById('search-container').style.top = positionY;
+        document.getElementById('logo-container').style.top = positionY;
+        document.getElementById('description-container').style.top = positionY;
     }
-    applyCustomPosition();
 }
 
 function changeLogo(event) {
@@ -441,6 +439,8 @@ function applyIconColor() {
 
 function toggleDebugMode() {
     debugMode = !debugMode;
+    localStorage.setItem('debugMode', debugMode); // 保存调试模式状态
+
     if (debugMode) {
         createDebugCard();
         requestAnimationFrame(updateDebugInfo);
@@ -490,19 +490,13 @@ function updateDebugInfo() {
 window.onload = function() {
     loadBackground();
     detectIE();
+
+    // 恢复主题和搜索引擎设置
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setTheme(savedTheme);
     } else {
         setTheme('light');
-    }
-    applyCustomColors();
-    applyCustomLogo();
-    applyCustomDescription();
-
-    var customEngineUrl = localStorage.getItem('customEngineUrl');
-    if (customEngineUrl) {
-        document.getElementById('custom-engine-url').value = customEngineUrl;
     }
 
     var savedEngine = localStorage.getItem('currentEngine');
@@ -512,5 +506,15 @@ window.onload = function() {
         setEngine('google');
     }
 
-    applyIconColor();
+    applyCustomColors();
+    applyCustomLogo();
+    applyCustomDescription();
+
+    // 恢复调试模式状态
+    var savedDebugMode = localStorage.getItem('debugMode') === 'true';
+    if (savedDebugMode) {
+        debugMode = true;
+        createDebugCard();
+        requestAnimationFrame(updateDebugInfo);
+    }
 };
