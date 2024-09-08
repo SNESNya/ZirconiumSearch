@@ -4,39 +4,53 @@ var debugCard;
 
 function search() {
     var query = document.getElementById('search-query').value;
-    var url;
-    switch (currentEngine) {
-        case 'web-link':
-            url = query;
-            if (!url.startsWith('http')) {
-                url = 'http://' + url;
-            }
-            break;
-        case 'google':
-            url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-            break;
-        case 'bing':
-            url = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
-            break;
-        case 'duckduckgo':
-            url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
-            break;
-        case 'wikipedia-zh':
-            url = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(query);
-            break;
-        case 'wikipedia-en':
-            url = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query);
-            break;
-        case 'starquest':
-            url = 'https://yhd.co/search.php?q=' + encodeURIComponent(query);
-            break;
-        case 'custom':
-            var customUrl = localStorage.getItem('customEngineUrl');
-            url = customUrl.replace('%s', encodeURIComponent(query));
-            break;
+    
+    // 正则表达式检测 URL
+    var urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+    if (urlPattern.test(query)) {
+        // 如果用户输入的是 URL 且没有包含 http/https，自动补全 http://
+        if (!query.startsWith('http://') && !query.startsWith('https://')) {
+            query = 'http://' + query;
+        }
+        window.location.href = query; // 直接跳转到链接
+    } else {
+        // 否则根据选择的搜索引擎进行搜索
+        var url;
+        switch (currentEngine) {
+            case 'web-link':
+                url = query;
+                if (!url.startsWith('http')) {
+                    url = 'http://' + url;
+                }
+                break;
+            case 'google':
+                url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+                break;
+            case 'bing':
+                url = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
+                break;
+            case 'duckduckgo':
+                url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
+                break;
+            case 'wikipedia-zh':
+                url = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(query);
+                break;
+            case 'wikipedia-en':
+                url = 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query);
+                break;
+            case 'starquest':
+                url = 'https://yhd.co/search.php?q=' + encodeURIComponent(query);
+                break;
+            case 'custom':
+                var customUrl = localStorage.getItem('customEngineUrl');
+                url = customUrl.replace('%s', encodeURIComponent(query));
+                break;
+        }
+        window.location.href = url;
     }
-    window.location.href = url;
 }
+
 
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
