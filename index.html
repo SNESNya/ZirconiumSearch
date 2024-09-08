@@ -110,6 +110,49 @@
                     <button onclick="togglePopup('description-modal')">设置描述文本</button>
                     <button onclick="clearDescription()">清除描述文本</button>
                 </div>
+                <div class="menu-section">
+                    <h3>自定义大小</h3>
+                    <div class="input-group">
+                        <label>搜索框长度</label>
+                        <input type="text" id="search-width" class="text-field" placeholder="300px" oninput="changeSize('search-container', 'width')">
+                    </div>
+                    <div class="input-group">
+                        <label>搜索框高度</label>
+                        <input type="text" id="search-height" class="text-field" placeholder="40px" oninput="changeSize('search-container', 'height')">
+                    </div>
+                    <div class="input-group">
+                        <label>阴影强度</label>
+                        <input type="text" id="shadow-strength" class="text-field" placeholder="0.1" oninput="changeShadowStrength()">
+                    </div>
+                    <div class="input-group">
+                        <label>阴影大小</label>
+                        <input type="text" id="shadow-size" class="text-field" placeholder="6px" oninput="changeShadowSize()">
+                    </div>
+                    <button onclick="resetSizeDefaults()">还原默认</button>
+                </div>
+                <div class="menu-section">
+                    <h3>自定义位置</h3>
+                    <div class="input-group">
+                        <label>X轴</label>
+                        <input type="text" id="search-position-x" class="text-field" placeholder="0px" oninput="changePosition('search-container', 'left')">
+                    </div>
+                    <div class="input-group">
+                        <label>Y轴</label>
+                        <input type="text" id="search-position-y" class="text-field" placeholder="0px" oninput="changePosition('search-container', 'top')">
+                    </div>
+                    <button onclick="resetPositionDefaults()">还原默认</button>
+                </div>
+
+                <div class="menu-section">
+                    <h3>调试模式</h3>
+                    <button onclick="toggleDebugMode()">启动调试模式</button>
+                </div>
+
+                <div class="menu-section">
+                    <h3>关于</h3>
+                    <button onclick="window.open('https://github.com/snesnya/quicksp-web', '_blank')">GitHub</button>
+                    <button>版本号 0.1.2</button>
+                </div>
             </div>
         </div>
     </div>
