@@ -9,13 +9,11 @@ function search() {
     var urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
     if (urlPattern.test(query)) {
-        // 如果用户输入的是 URL 且没有包含 http/https，自动补全 http://
         if (!query.startsWith('http://') && !query.startsWith('https://')) {
             query = 'http://' + query;
         }
         window.location.href = query; // 直接跳转到链接
     } else {
-        // 否则根据选择的搜索引擎进行搜索
         var url;
         switch (currentEngine) {
             case 'web-link':
@@ -454,7 +452,7 @@ function createDebugCard() {
     debugCard.className = 'debug-card';
     debugCard.innerHTML = `
         <div>FPS: <span id="fps">0</span></div>
-        <div>版本号: 0.1.1</div>
+        <div>版本号: 0.1.2</div>
     `;
     document.body.appendChild(debugCard);
 }
