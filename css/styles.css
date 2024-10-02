@@ -8,6 +8,7 @@
     --dynamic-color-on-background: #000000;
     --dynamic-color-on-surface: #000000;
     --dynamic-color-danger: #FF0000;
+    --placeholder-color: var(--dynamic-color-on-surface);
 }
 
 body {
@@ -70,10 +71,10 @@ body.oled-theme {
     background-color: var(--dynamic-color-surface);
     padding: 20px;
     border-radius: 16px;
-    width: 400px; /* 固定模态窗口的宽度为400px */
-    box-sizing: border-box; /* 确保内边距和边框不会增加宽度 */
+    width: 400px;
+    box-sizing: border-box;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow-x: hidden; /* 隐藏水平滚动条 */
+    overflow-x: hidden;
 }
 
 .modal-header {
@@ -87,14 +88,14 @@ body.oled-theme {
 .modal-header h2 {
     margin: 0;
     font-size: 18px;
-    color: var(--dynamic-color-on-primary);
+    color: var(--dynamic-color-on-surface);
 }
 
 .modal-body {
     padding-top: 10px;
-    max-height: 60vh; /* 高度调整 */
-    overflow-y: auto; /* 启用内部垂直滚动条 */
-    overflow-x: hidden; /* 隐藏水平滚动条 */
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .menu-section {
@@ -107,7 +108,7 @@ body.oled-theme {
 }
 
 .menu-section button {
-    width: calc(100% - 20px); /* 与输入框保持一致宽度 */
+    width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
     background-color: var(--dynamic-color-secondary);
@@ -117,7 +118,7 @@ body.oled-theme {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    box-sizing: border-box; /* 包括边框和内边距在内的宽度计算 */
+    box-sizing: border-box;
 }
 
 .menu-section button.active {
@@ -137,13 +138,13 @@ body.oled-theme {
 }
 
 .input-group input.text-field {
-    width: calc(100% - 20px); /* 与按钮保持一致宽度 */
+    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid var(--dynamic-color-secondary);
     border-radius: 8px;
     font-size: 16px;
     outline: none;
-    box-sizing: border-box; /* 包括边框和内边距在内的宽度计算 */
+    box-sizing: border-box;
 }
 
 .close-button {
@@ -163,11 +164,11 @@ body.oled-theme {
     border-radius: 28px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    width: 300px; /* 将默认搜索框长度设置为300px */
+    width: 300px;
     position: relative;
     left: 0px;
     top: 0px;
-    box-sizing: border-box; /* 确保内边距和边框不会增加宽度 */
+    box-sizing: border-box;
 }
 
 .search-box {
@@ -178,7 +179,12 @@ body.oled-theme {
     margin-right: 10px;
     background-color: inherit;
     color: inherit;
-    box-sizing: border-box; /* 确保宽度计算正确 */
+    box-sizing: border-box;
+}
+
+.search-box::placeholder {
+    color: var(--placeholder-color);
+    opacity: 0.7;
 }
 
 .search-button {
@@ -194,10 +200,6 @@ body.oled-theme {
     cursor: pointer;
     font-size: 24px;
     transition: background-color 0.3s, color 0.3s;
-}
-
-.search-button span {
-    color: var(--dynamic-color-on-secondary);
 }
 
 .search-button:hover {
@@ -223,10 +225,6 @@ body.oled-theme {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.engine-button span {
-    color: var(--dynamic-color-on-secondary);
-}
-
 .engine-button:hover {
     background-color: var(--dynamic-color-primary);
     color: var(--dynamic-color-on-primary);
@@ -242,7 +240,6 @@ body.oled-theme {
     font-size: 14px;
 }
 
-/* 调试模式卡片样式 */
 .debug-card {
     position: fixed;
     top: 10px;
@@ -253,4 +250,9 @@ body.oled-theme {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-size: 14px;
+}
+
+.material-icons {
+    font-size: 24px;
+    vertical-align: middle;
 }

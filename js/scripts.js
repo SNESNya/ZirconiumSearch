@@ -5,14 +5,13 @@ var debugCard;
 function search() {
     var query = document.getElementById('search-query').value;
     
-    // 正则表达式检测 URL
     var urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
     if (urlPattern.test(query)) {
         if (!query.startsWith('http://') && !query.startsWith('https://')) {
             query = 'http://' + query;
         }
-        window.location.href = query; // 直接跳转到链接
+        window.location.href = query;
     } else {
         var url;
         switch (currentEngine) {
@@ -107,7 +106,6 @@ function setTheme(theme) {
     });
     document.getElementById(theme + '-theme-btn').classList.add('active');
 
-    // 重新应用图标颜色
     applyIconColor();
 }
 
@@ -115,13 +113,34 @@ function changeColor(elementId, styleProperty) {
     var color = event.target.value;
     document.getElementById(elementId).style[styleProperty] = color;
     localStorage.setItem(elementId + '-' + styleProperty, color);
+
+    if (elementId === 'search-container' && styleProperty === 'backgroundColor') {
+        updatePlaceholderColor(color);
+    }
+}
+
+function updatePlaceholderColor(backgroundColor) {
+    var rgb = hexToRgb(backgroundColor);
+    var brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+    var placeholderColor = brightness > 128 ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)';
+    
+    document.documentElement.style.setProperty('--placeholder-color', placeholderColor);
+    localStorage.setItem('placeholder-color', placeholderColor);
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
 }
 
 function changePlaceholderColor() {
     var color = document.getElementById('search-placeholder-color').value;
-    var searchBox = document.getElementById('search-query');
-    searchBox.style.setProperty('--placeholder-color', color);
-    localStorage.setItem('search-placeholder-color', color);
+    document.documentElement.style.setProperty('--placeholder-color', color);
+    localStorage.setItem('placeholder-color', color);
 }
 
 function changePlaceholderText() {
@@ -131,15 +150,15 @@ function changePlaceholderText() {
 }
 
 function changeSize(elementId, styleProperty) {
-    var size = event.target.value;
+    var size = event.target.value + 'px';
     document.getElementById(elementId).style[styleProperty] = size;
     localStorage.setItem(elementId + '-' + styleProperty, size);
 }
 
 function changeShadowStrength() {
     var strength = document.getElementById('shadow-strength').value || '0.1';
-    var size = document.getElementById('shadow-size').value || '6px';
-    document.getElementById('search-container').style.boxShadow = `0px 4px ${size} rgba(0, 0, 0, ${strength})`;
+    var size = document.getElementById('shadow-size').value || '6';
+    document.getElementById('search-container').style.boxShadow = `0px 4px ${size}px rgba(0, 0, 0, ${strength})`;
     localStorage.setItem('search-container-shadow-strength', strength);
     localStorage.setItem('search-container-shadow-size', size);
 }
@@ -149,7 +168,7 @@ function changeShadowSize() {
 }
 
 function changePosition(elementId, styleProperty) {
-    var position = event.target.value;
+    var position = event.target.value + 'px';
     document.getElementById(elementId).style[styleProperty] = position;
     localStorage.setItem(elementId + '-' + styleProperty, position);
 }
@@ -159,7 +178,7 @@ function resetDefaults() {
     localStorage.removeItem('search-query-color');
     localStorage.removeItem('search-button-backgroundColor');
     localStorage.removeItem('settings-button-backgroundColor');
-    localStorage.removeItem('search-placeholder-color');
+    localStorage.removeItem('placeholder-color');
     localStorage.removeItem('search-placeholder-text');
     
     document.getElementById('search-container').style.backgroundColor = '#ffffff';
@@ -167,8 +186,8 @@ function resetDefaults() {
     document.getElementById('search-button').style.backgroundColor = '#4CAF50';
     document.getElementById('settings-button').style.backgroundColor = '#FF9800';
     document.getElementById('search-query').placeholder = '输入搜索内容...';
-    document.getElementById('search-query').style.setProperty('--placeholder-color', '#ccc');
-    applyIconColor(); // 重置图标颜色
+    document.documentElement.style.setProperty('--placeholder-color', 'rgba(0, 0, 0, 0.7)');
+    applyIconColor();
 }
 
 function resetSizeDefaults() {
@@ -177,9 +196,14 @@ function resetSizeDefaults() {
     localStorage.removeItem('search-container-shadow-strength');
     localStorage.removeItem('search-container-shadow-size');
 
-    document.getElementById('search-container').style.width = '300px'; // 修改为300px
-    document.getElementById('search-container').style.height = '40px';
+    document.getElementById('search-container').style.width = '300px';
+    document.getElementById('search-container').style.height = '';
     document.getElementById('search-container').style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+    
+    document.getElementById('search-container-width').value = 300;
+    document.getElementById('search-container-height').value = 40;
+    document.getElementById('shadow-strength').value = 0.1;
+    document.getElementById('shadow-size').value = 6;
 }
 
 function resetPositionDefaults() {
@@ -218,9 +242,9 @@ function applyCustomColors() {
         document.getElementById('settings-button').style.backgroundColor = settingsButtonColor;
     }
 
-    var searchPlaceholderColor = localStorage.getItem('search-placeholder-color');
-    if (searchPlaceholderColor) {
-        document.getElementById('search-query').style.setProperty('--placeholder-color', searchPlaceholderColor);
+    var placeholderColor = localStorage.getItem('placeholder-color');
+    if (placeholderColor) {
+        document.documentElement.style.setProperty('--placeholder-color', placeholderColor);
     }
 
     var searchPlaceholderText = localStorage.getItem('search-placeholder-text');
@@ -241,18 +265,7 @@ function applyCustomColors() {
     var shadowStrength = localStorage.getItem('search-container-shadow-strength');
     var shadowSize = localStorage.getItem('search-container-shadow-size');
     if (shadowStrength && shadowSize) {
-        document.getElementById('search-container').style.boxShadow = `0px 4px ${shadowSize} rgba(0, 0, 0, ${shadowStrength})`;
-    }
-
-    var positionX = localStorage.getItem('search-container-left');
-    var positionY = localStorage.getItem('search-container-top');
-    if (positionX) {
-        document.getElementById('logo-container').style.left = positionX;
-        document.getElementById('description-container').style.left = positionX;
-    }
-    if (positionY) {
-        document.getElementById('logo-container').style.top = positionY;
-        document.getElementById('description-container').style.top = positionY;
+        document.getElementById('search-container').style.boxShadow = `0px 4px ${shadowSize}px rgba(0, 0, 0, ${shadowStrength})`;
     }
 }
 
@@ -397,8 +410,8 @@ function saveCustomEngine() {
 
 function detectIE() {
     var ua = window.navigator.userAgent;
-    var msie = ua.indexOf('MSIE '); // IE 10 或更早版本
-    var trident = ua.indexOf('Trident/'); // IE 11
+    var msie = ua.indexOf('MSIE ');
+    var trident = ua.indexOf('Trident/');
 
     if (msie > 0 || trident > 0) {
         var warning = document.getElementById('ie-warning');
@@ -410,12 +423,10 @@ function applyCustomPosition() {
     var positionX = localStorage.getItem('search-container-left');
     var positionY = localStorage.getItem('search-container-top');
     if (positionX) {
-        document.getElementById('logo-container').style.left = positionX;
-        document.getElementById('description-container').style.left = positionX;
+        document.getElementById('search-container').style.left = positionX;
     }
     if (positionY) {
-        document.getElementById('logo-container').style.top = positionY;
-        document.getElementById('description-container').style.top = positionY;
+        document.getElementById('search-container').style.top = positionY;
     }
 }
 
@@ -437,7 +448,7 @@ function applyIconColor() {
 
 function toggleDebugMode() {
     debugMode = !debugMode;
-    localStorage.setItem('debugMode', debugMode); // 保存调试模式状态
+    localStorage.setItem('debugMode', debugMode);
 
     if (debugMode) {
         createDebugCard();
@@ -488,7 +499,6 @@ window.onload = function() {
     loadBackground();
     detectIE();
 
-    // 恢复主题和搜索引擎设置
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setTheme(savedTheme);
@@ -506,8 +516,14 @@ window.onload = function() {
     applyCustomColors();
     applyCustomLogo();
     applyCustomDescription();
+    applyCustomPosition();
 
-    // 恢复调试模式状态
+    var shadowStrength = localStorage.getItem('search-container-shadow-strength') || '0.1';
+    var shadowSize = localStorage.getItem('search-container-shadow-size') || '6';
+    document.getElementById('shadow-strength').value = shadowStrength;
+    document.getElementById('shadow-size').value = shadowSize;
+    changeShadowStrength();
+
     var savedDebugMode = localStorage.getItem('debugMode') === 'true';
     if (savedDebugMode) {
         debugMode = true;
