@@ -451,8 +451,7 @@ function createDebugCard() {
     debugCard = document.createElement('div');
     debugCard.className = 'debug-card';
     debugCard.innerHTML = `
-        <div>FPS: <span id="fps">0</span></div>
-        <div>版本号: 0.1.3</div>
+        <div>FPS: <span id="fps">NaN</span></div>
     `;
     document.body.appendChild(debugCard);
 }
