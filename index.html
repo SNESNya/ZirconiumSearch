@@ -61,10 +61,6 @@
                         <input type="color" id="search-placeholder-color" onchange="changePlaceholderColor()">
                     </div>
                     <div class="input-group">
-                        <label for="search-placeholder-text">搜索框预文本</label>
-                        <input type="text" id="search-placeholder-text" class="text-field" onchange="changePlaceholderText()">
-                    </div>
-                    <div class="input-group">
                         <label for="search-query-color">搜索文字颜色</label>
                         <input type="color" id="search-query-color" onchange="changeColor('search-query', 'color')">
                     </div>
@@ -82,6 +78,10 @@
                             <option value="black">黑色</option>
                             <option value="white">白色</option>
                         </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="search-placeholder-text">搜索框预文本</label>
+                        <input type="text" id="search-placeholder-text" class="text-field" onchange="changePlaceholderText()">
                     </div>
                     <button onclick="resetDefaults()">还原默认</button>
                 </div>
@@ -140,7 +140,7 @@
                 <div class="menu-section">
                     <h3>关于</h3>
                     <button onclick="window.open('https://github.com/SNESNya/ZirconiumSearch', '_blank')">GitHub</button>
-                    <p>版本号 0.2</p>
+                    <p>版本号 0.2.1</p>
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
                     <label for="description-text">输入描述文本</label>
                     <input type="text" id="description-text" class="text-field">
                 </div>
-                <button onclick="saveDescriptionText()">保存</button>
+                <button class="button" onclick="saveDescriptionText()">保存</button>
             </div>
         </div>
     </div>
@@ -173,7 +173,7 @@
                 <div class="input-group">
                     <input type="text" id="custom-engine-url" class="text-field" placeholder="https://example.com/search?q=%s">
                 </div>
-                <button onclick="saveCustomEngine()">保存</button>
+                <button class="button" onclick="saveCustomEngine()">保存</button>
             </div>
         </div>
     </div>

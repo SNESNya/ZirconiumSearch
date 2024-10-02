@@ -256,3 +256,19 @@ body.oled-theme {
     font-size: 24px;
     vertical-align: middle;
 }
+
+.button {
+    background-color: var(--dynamic-color-secondary);
+    color: var(--dynamic-color-on-secondary);
+    border: none;
+    border-radius: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.button:hover {
+    background-color: var(--dynamic-color-primary);
+    color: var(--dynamic-color-on-primary);
+}
